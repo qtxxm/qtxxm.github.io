@@ -15,13 +15,28 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="$arg_name请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name
+$args请求中的参数值
+$binary_remote_addr客户端地址的二进制形式, 固定长度为4个字节
+$body_bytes_sent传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容
+$bytes_sent传输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx变量">
+<meta property="og:url" content="http://yoursite.com/2016/07/25/Nginx变量/index.html">
 <meta property="og:site_name" content="虾米笔记">
-<meta property="og:updated_time" content="2016-07-04T07:26:40.000Z">
+<meta property="og:description" content="$arg_name请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name
+$args请求中的参数值
+$binary_remote_addr客户端地址的二进制形式, 固定长度为4个字节
+$body_bytes_sent传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容
+$bytes_sent传输">
+<meta property="og:updated_time" content="2016-08-08T02:31:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Nginx变量">
+<meta name="twitter:description" content="$arg_name请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name
+$args请求中的参数值
+$binary_remote_addr客户端地址的二进制形式, 固定长度为4个字节
+$body_bytes_sent传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容
+$bytes_sent传输">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -53,7 +68,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>tags | 虾米笔记</title>
+<title>Nginx变量 | 虾米笔记</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -63,7 +78,7 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -254,11 +269,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Nginx变量" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/tags/index.html" class="article-date">
-      <time datetime="2016-07-04T07:26:40.000Z" itemprop="datePublished">2016-07-04</time>
+      <a href="/2016/07/25/Nginx变量/" class="article-date">
+      <time datetime="2016-07-25T08:41:02.000Z" itemprop="datePublished">2016-07-25</time>
 </a>
     </div>
   
@@ -271,7 +286,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      Nginx变量
     </h1>
   
 
@@ -281,6 +296,10 @@
         
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -288,96 +307,115 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <style>
-    .article-meta { display: none; }
-    #container .article .article-title { padding-right: 0; }
-    .article-header {
-        padding: 0;
-        padding-top: 26px;
-        border-left: none;
-        text-align: center;
-    }
-    .article-header:hover { border-left: none; }
-    .article-title { font-size: 1.6em }
-    .article-entry hr { margin: 0;}
-    .article-meta,
-    #container .article-info-post.article-info { display: none;}
-    #container .article .article-title { padding: 0; }
-</style>
+        <p><strong>$arg_name</strong><br>请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name</p>
+<p><strong>$args</strong><br>请求中的参数值</p>
+<p><strong>$binary_remote_addr</strong><br>客户端地址的二进制形式, 固定长度为4个字节</p>
+<p><strong>$body_bytes_sent</strong><br>传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容</p>
+<p><strong>$bytes_sent</strong><br>传输给客户端的字节数</p>
+<a id="more"></a>
+<p><strong>$connection</strong><br>TCP连接的序列号</p>
+<p><strong>$connection_requests</strong><br>TCP连接当前的请求数量</p>
+<p><strong>$content_length</strong><br>“Content-Length” 请求头字段</p>
+<p><strong>$content_type</strong><br>“Content-Type” 请求头字段</p>
+<p><strong>$cookie_name</strong><br>cookie名称</p>
+<p><strong>$document_root</strong><br>当前请求的文档根目录或别名</p>
+<p><strong>$document_uri</strong><br>同 $uri</p>
+<p><strong>$host</strong><br>优先级如下：HTTP请求行的主机名&gt;”HOST”请求头字段&gt;符合请求的服务器名</p>
+<p><strong>$hostname</strong><br>主机名</p>
+<p><strong>$http_name</strong><br>匹配任意请求头字段； 变量名中的后半部分“name”可以替换成任意请求头字段，如在配置文件中需要获取http请求头：“Accept-Language”，那么将“－”替换为下划线，大写字母替换为小写，形如：$http_accept_language即可</p>
+<p><strong>$https</strong><br>如果开启了SSL安全模式，值为“on”，否则为空字符串</p>
+<p><strong>$is_args</strong><br>如果请求中有参数，值为“?”，否则为空字符串</p>
+<p><strong>$limit_rate</strong><br>用于设置响应的速度限制，详见 limit_rate</p>
+<p><strong>$msec</strong><br>当前的Unix时间戳</p>
+<p><strong>$nginx_version</strong><br>nginx版本</p>
+<p><strong>$pid</strong><br>工作进程的PID</p>
+<p><strong>$pipe</strong><br>如果请求来自管道通信，值为“p”，否则为“.”</p>
+<p><strong>$proxy_protocol_addr</strong><br>获取代理访问服务器的客户端地址，如果是直接访问，该值为空字符串</p>
+<p><strong>$query_string</strong><br>同 $args</p>
+<p><strong>$realpath_root</strong><br>当前请求的文档根目录或别名的真实路径，会将所有符号连接转换为真实路径。</p>
+<p><strong>$remote_addr</strong><br>客户端地址</p>
+<p><strong>$remote_port</strong><br>客户端端口</p>
+<p><strong>$remote_user</strong><br>用于HTTP基础认证服务的用户名</p>
+<p><strong>$request</strong><br>代表客户端的请求地址</p>
+<p><strong>$request_body</strong><br>客户端的请求主体<br>此变量可在location中使用，将请求主体通过proxy_pass, fastcgi_pass, uwsgi_pass, 和 scgi_pass传递给下一级的代理服务器。</p>
+<p><strong>$request_body_file</strong><br>将客户端请求主体保存在临时文件中。文件处理结束后，此文件需删除。如果需要之一开启此功能，需要设置client_body_in_file_only。如果将次文件传递给后端的代理服务器，需要禁用request body，即设置proxy_pass_request_body off，fastcgi_pass_request_body off, uwsgi_pass_request_body off, or scgi_pass_request_body off</p>
+<p><strong>$request_completion</strong><br>如果请求成功，值为”OK”，如果请求未完成或者请求不是一个范围请求的最后一部分，则为空。</p>
+<p><strong>$request_filename</strong><br>当前连接请求的文件路径，由root或alias指令与URI请求生成。</p>
+<p><strong>$request_length</strong><br>请求的长度 (包括请求的地址, http请求头和请求主体) (1.3.12, 1.2.7)</p>
+<p><strong>$request_method</strong><br>HTTP请求方法，通常为“GET”或“POST”</p>
+<p><strong>$request_time</strong><br>处理客户端请求使用的时间 (1.3.9, 1.2.6); 从读取客户端的第一个字节开始计时。</p>
+<p><strong>$request_uri</strong><br>这个变量等于包含一些客户端请求参数的原始URI，它无法修改，请查看$uri更改或重写URI，不包含主机名，例如：”/cnphp/test.php?arg=freemouse”。</p>
+<p><strong>$scheme</strong><br>请求使用的Web协议, “http” 或 “https”</p>
+<p><strong>$sent_http_name</strong><br>可以设置任意http响应头字段； 变量名中的后半部分“name”可以替换成任意响应头字段，如需要设置响应头Content-length，那么将“－”替换为下划线，大写字母替换为小写，形如：$sent_http_content_length 4096即可。</p>
+<p><strong>$server_addr</strong><br>服务器端地址，需要注意的是：为了避免访问linux系统内核，应将ip地址提前设置在配置文件中。</p>
+<p><strong>$server_name</strong><br>服务器名，www.cnphp.info</p>
+<p><strong>$server_port</strong><br>服务器端口</p>
+<p><strong>$server_protocol</strong><br>服务器的HTTP版本, 通常为 “HTTP/1.0” 或 “HTTP/1.1”</p>
+<p><strong>$status</strong><br>HTTP响应代码</p>
+<p><strong>$tcpinfo_rtt, $tcpinfo_rttvar, $tcpinfo_snd_cwnd, $tcpinfo_rcv_space</strong><br>客户端TCP连接的具体信息</p>
+<p><strong>$time_iso8601</strong><br>服务器时间的ISO 8610格式</p>
+<p><strong>$time_local</strong><br>服务器时间（LOG Format 格式）</p>
+<p><strong>$uri</strong><br>请求中的当前URI(不带请求参数，参数位于$args)，可以不同于浏览器传递的$request_uri的值，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名，如”/foo/bar.html”。</p>
 
-
-    <!-- Tag Cloud Page -->
-    <hr>
-<br>
-
-
-<p class="count"></p>
-
-<div class="tags">
-    <a href="/tags/Linux/" style="font-size: 16px; color: #808080">Linux</a> <a href="/tags/Log4j2/" style="font-size: 16px; color: #808080">Log4j2</a> <a href="/tags/Logstash/" style="font-size: 16px; color: #808080">Logstash</a> <a href="/tags/Maven/" style="font-size: 16px; color: #808080">Maven</a> <a href="/tags/Nginx/" style="font-size: 35px; color: #000">Nginx</a> <a href="/tags/PostgreSQL/" style="font-size: 16px; color: #808080">PostgreSQL</a> <a href="/tags/Redis/" style="font-size: 16px; color: #808080">Redis</a> <a href="/tags/Spring/" style="font-size: 16px; color: #808080">Spring</a> <a href="/tags/Ubuntu/" style="font-size: 16px; color: #808080">Ubuntu</a> <a href="/tags/synchronized/" style="font-size: 16px; color: #808080">synchronized</a> <a href="/tags/volatile/" style="font-size: 16px; color: #808080">volatile</a> <a href="/tags/多线程/" style="font-size: 35px; color: #000">多线程</a>
-</div>
-<style>
-    .category-list li{
-        display: inline-block;
-        margin: 0 1em .5em 0;
-        padding: 4px;
-        border: 1px solid lightgray;
-        font-size: 1.2rem;
-    }
-    .category-list a { color: gray; }
-    .category-list-item:hover a {
-        color: gray;
-        text-decoration: none;
-    }
-    .category-list-count {
-        margin-left: 2px;
-        font-size: .9rem;
-    }
-    .article-entry ul li:before{ display: none; }
-    .article-inner { text-align: center; }
-    .tags {
-        max-width: 42em;
-        margin: 2em auto;
-        margin-top: 0em;
-    }
-    .tags a {
-        margin-right: 1em;
-        line-height: 65px;
-        border-bottom: 1px solid gray;
-        white-space: nowrap;
-        transition: border-bottom .5s;
-    }
-    .tags a:hover {
-        border-bottom: 3px dotted gray;
-        text-decoration: none;
-    }
-    #count > span {
-        margin: auto .2em;
-        font-weight: bold;
-    }
-</style>
-
-<!-- Count tags and categories -->
-<p id="count">
-        已有<span><script>document.write($(".category-list-item").length)</script></span>个分类，
-        共计<span><script>document.write($(".tags > a").length)</script></span>个标签
-</p>
-<script>
-    $('#count').appendTo('.count');
-</script>
-
-          
-        
       
     </div>
     
   </div>
   
     
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/07/25/Nginx变量/">Nginx变量</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">虾米</a></p>
+        <p><span>发布时间:</span>2016-07-25, 16:41:02</p>
+        <p><span>最后更新:</span>2016-08-08, 10:31:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/07/25/Nginx变量/" title="Nginx变量">http://yoursite.com/2016/07/25/Nginx变量/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/25/Nginx变量/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/07/25/Nginx路径匹配规则/">
+                    Nginx路径匹配规则
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/07/21/Java关键字synchronized/">
+                    Java关键字synchronized
+                </a>
+            </div>
+        
+    </nav>
 
   
 </article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
 
 
 
@@ -395,7 +433,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"tags　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Nginx变量　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -410,6 +448,26 @@
 
     
 
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/07/25/Nginx路径匹配规则/" title="上一篇: Nginx路径匹配规则">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/07/21/Java关键字synchronized/" title="下一篇: Java关键字synchronized">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/Logstash读取log4j2日志文件/">Logstash读取log4j2日志文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/25/Nginx路径匹配规则/">Nginx路径匹配规则</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/25/Nginx变量/">Nginx变量</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/Java关键字synchronized/">Java关键字synchronized</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/Java关键字volatile/">Java关键字volatile</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/04/maven打包时修改配置文件/">maven打包时修改配置文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/PostgreSQL升级/">PostgreSQL升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/redis 编译安装/">Redis 编译安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/01/Ubuntu下编译安装 hybla 模块/">Ubuntu下编译安装 hybla 模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/09/Spring常用接口(一)/">Spring 常用接口(一)</a></li></ul>
 
 
 

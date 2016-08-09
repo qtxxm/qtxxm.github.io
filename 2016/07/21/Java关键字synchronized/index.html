@@ -15,12 +15,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="虾米笔记">
-<meta property="og:url" content="http://yoursite.com/tags/Spring/index.html">
+<meta name="description" content="同步的基础Java中的每一个对象都可以作为锁.
+1234567891011121314151617public class SynchronizedTest &amp;#123;    private Object object = new Object();    // 1. 对于同步方法, 锁是当前实例对象(this)    public synchronized void method1() &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java关键字synchronized">
+<meta property="og:url" content="http://yoursite.com/2016/07/21/Java关键字synchronized/index.html">
 <meta property="og:site_name" content="虾米笔记">
+<meta property="og:description" content="同步的基础Java中的每一个对象都可以作为锁.
+1234567891011121314151617public class SynchronizedTest &amp;#123;    private Object object = new Object();    // 1. 对于同步方法, 锁是当前实例对象(this)    public synchronized void method1() &amp;#1">
+<meta property="og:updated_time" content="2016-08-08T02:28:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="虾米笔记">
+<meta name="twitter:title" content="Java关键字synchronized">
+<meta name="twitter:description" content="同步的基础Java中的每一个对象都可以作为锁.
+1234567891011121314151617public class SynchronizedTest &amp;#123;    private Object object = new Object();    // 1. 对于同步方法, 锁是当前实例对象(this)    public synchronized void method1() &amp;#1">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -52,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Tag: Spring | 虾米笔记</title>
+<title>Java关键字synchronized | 虾米笔记</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -62,9 +69,9 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
-        isTag: true,
+        isTag: false,
         isCategory: false,
         open_in_new: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -253,54 +260,164 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Java关键字synchronized" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2015/04/09/Spring常用接口(一)/" class="archive-article-date">
-      <time datetime="2015-04-09T15:06:51.000Z" itemprop="datePublished">04-09</time>
+    <div class="article-meta">
+      <a href="/2016/07/21/Java关键字synchronized/" class="article-date">
+      <time datetime="2016-07-21T09:36:13.000Z" itemprop="datePublished">2016-07-21</time>
 </a>
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/04/09/Spring常用接口(一)/">Spring 常用接口(一)</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java关键字synchronized
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 
-          
+        
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h4 id="同步的基础"><a href="#同步的基础" class="headerlink" title="同步的基础"></a>同步的基础</h4><p>Java中的每一个对象都可以作为锁.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Object object = <span class="keyword">new</span> Object();</div><div class="line">    <span class="comment">// 1. 对于同步方法, 锁是当前实例对象(this)</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 2. 对于静态同步方法, 锁是当前对象的Class对象(SynchronizedTest.class)</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 3. 对于同步方法块, 锁是synchonized括号里配置的对象(object)</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">synchronized</span> (object) &#123;</div><div class="line">            <span class="comment">// do something</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/07/21/Java关键字synchronized/">Java关键字synchronized</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">虾米</a></p>
+        <p><span>发布时间:</span>2016-07-21, 17:36:13</p>
+        <p><span>最后更新:</span>2016-08-08, 10:28:47</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/07/21/Java关键字synchronized/" title="Java关键字synchronized">http://yoursite.com/2016/07/21/Java关键字synchronized/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/21/Java关键字synchronized/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/07/25/Nginx变量/">
+                    Nginx变量
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/07/21/Java关键字volatile/">
+                    Java关键字volatile
+                </a>
+            </div>
+        
+    </nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#同步的基础"><span class="toc-number">1.</span> <span class="toc-text">同步的基础</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Java关键字synchronized　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
 
     
 
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/07/25/Nginx变量/" title="上一篇: Nginx变量">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/07/21/Java关键字volatile/" title="下一篇: Java关键字volatile">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/Logstash读取log4j2日志文件/">Logstash读取log4j2日志文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/25/Nginx路径匹配规则/">Nginx路径匹配规则</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/25/Nginx变量/">Nginx变量</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/Java关键字synchronized/">Java关键字synchronized</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/Java关键字volatile/">Java关键字volatile</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/04/maven打包时修改配置文件/">maven打包时修改配置文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/PostgreSQL升级/">PostgreSQL升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/redis 编译安装/">Redis 编译安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/01/Ubuntu下编译安装 hybla 模块/">Ubuntu下编译安装 hybla 模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/09/Spring常用接口(一)/">Spring 常用接口(一)</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">

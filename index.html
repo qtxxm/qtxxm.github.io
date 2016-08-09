@@ -28,7 +28,7 @@
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="虾米笔记" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="虾米笔记" type="application/atom+xml">
 
 
 
@@ -71,6 +71,7 @@
         isArchive: false,
         isTag: false,
         isCategory: false,
+        open_in_new: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
         search: undefined
@@ -137,13 +138,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        <li>Friends</li>
+                        <li>友情链接</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -169,11 +170,11 @@
                     <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
                             
-                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
                             
-                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
                             
                         </ul>
                     </nav>
@@ -182,7 +183,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
                     </div>
                 </section>
                 
@@ -191,11 +192,11 @@
                 <section class="switch-part switch-part3">
                     <div id="js-friends">
                     
-                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
                     
-                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
                     
-                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
                     
                     </div>
                 </section>
@@ -255,9 +256,356 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Logstash读取log4j2日志文件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/09/Logstash读取log4j2日志文件/" class="article-date">
+      <time datetime="2016-08-09T09:37:52.000Z" itemprop="datePublished">2016-08-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/09/Logstash读取log4j2日志文件/">Logstash读取log4j2日志文件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>Log4j2 日志输出格式: <strong> %d{yyyy-MM-dd HH:mm:ss,SSS} [%t] %-5level [%X{_traceId}] %logger - %msg%n </strong></p>
+<p>输出示例:</p>
+<blockquote>
+<p>2016-08-09 15:09:03,386 [http-8080-3] INFO [854efeae-394c-48b8-aafe-fe16ec4863c2] net.sephy.filter.UserRequestLoggingFilter - {“user”:”114”, “ip”:”192.168.2.122”,”host”:”localhost”,”method”:”get”,”uri”:”/a/b/c”,”parameters”:”_=1470726543254”}<br>2016-08-09 10:20:00,386 [threadPoolTaskScheduler-3] INFO [] net.sephy.util.TaskLogger - Execute id: 2b3e223f-43f4-4222-80d1-0edaeb0fbeae finished, time used: 345<br>2015-03-23 11:11:58,666 [http-8080-4] ERROR [894c547a-9a84-4baf-960a-0e994b62b678] net.sephy.ExceptionResolver - Processing request failed<br>kafka.common.FailedToSendMessageException: Failed to send messages after 3 tries.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at kafka.producer.async.DefaultEventHandler.handle(DefaultEventHandler.scala:90)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at kafka.producer.Producer.send(Producer.scala:77)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at kafka.javaapi.producer.Producer.send(Producer.scala:42)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;…<br>2015-03-23 11:11:58,666 [http-8080-4] ERROR [894c547a-9a84-4baf-960a-0e994b62b678] net.sephy.ExceptionResolver - Processing request failed<br>kafka.common.FailedToSendMessageException: Failed to send messages after 3 tries.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at kafka.producer.async.DefaultEventHandler.handle(DefaultEventHandler.scala:90)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at kafka.producer.Producer.send(Producer.scala:77)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at kafka.javaapi.producer.Producer.send(Producer.scala:42)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;…</p>
+</blockquote>
+<h5 id="正确解析异常日志"><a href="#正确解析异常日志" class="headerlink" title="正确解析异常日志"></a>正确解析异常日志</h5><p>因为异常输出的日志会占据很多行, 为了能正确识别这些日志, 我们可以使用 <strong> muiltiline codec </strong> 或者 <strong> muiltiline filter </strong> 来处理多行输出的文本</p>
+<p>multiline code 配置示例, 正则表达式是关键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">    file &#123;</div><div class="line">        path =&gt; &quot;/var/log/test.log&quot;</div><div class="line">        start_position =&gt; &quot;beginning&quot;</div><div class="line">        codec =&gt; multiline &#123;</div><div class="line">            pattern =&gt; &quot;(^d+serror)|(^.+Exception: .+)|(^s+at .+)|(^s+... d+ more)|(^s*Caused by:.+)&quot;</div><div class="line">            what =&gt; &quot;previous&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实际上通过日志输出格式可以发现, 每条日志输出都是以时间搓为日志起始标识, 所以更好的识别方案如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">    file &#123;</div><div class="line">        path =&gt; &quot;/var/log/test.log&quot;</div><div class="line">        start_position =&gt; &quot;beginning&quot;</div><div class="line">        codec =&gt; multiline &#123;</div><div class="line">            pattern =&gt; &quot;^%&#123;TIMESTAMP_ISO8601&#125;&quot; # 这个正则查看以时间搓(n)作为起始的文本行, 直到匹配到下一个新的时间搓(n+1), </div><div class="line">                                               # 从 n 开始 n+1 之前的的内容, 都作为同一个日志事件(需要配合设置 negate 参数为 true)</div><div class="line">            negate =&gt; true</div><div class="line">            what =&gt; &quot;previous&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终的 logstash.conf 配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">input &#123; </div><div class="line">    </div><div class="line">    # 读取log4j2的日志文件</div><div class="line">    # 针对 log4j2 的日志格式如下:</div><div class="line">    # %d&#123;yyyy-MM-dd HH:mm:ss,SSS&#125; [%t] %-5level [%X&#123;_traceId&#125;] %logger - %msg%n</div><div class="line">    </div><div class="line">    file &#123;</div><div class="line">        path =&gt; [&quot;/path/to/log&quot;] # 对应的日志文件路径</div><div class="line">        </div><div class="line">        stat_interval =&gt; 1 # 间隔多少秒读取</div><div class="line">        add_field =&gt; &#123; # 增加一些标记以示区分</div><div class="line">        	&quot;[@metadata][app]&quot; =&gt; &quot;your_app&quot;</div><div class="line">        	&quot;[@metadata][document_type]&quot; =&gt; &quot;your_doc_type&quot;</div><div class="line">        &#125;</div><div class="line">        codec =&gt; multiline &#123; # 当调用 log.error(&quot;message&quot;, cause) 方法是, 会输出多行日志</div><div class="line">            pattern =&gt; &quot;^%&#123;TIMESTAMP_ISO8601&#125;&quot;</div><div class="line">            negate =&gt; true</div><div class="line">            what =&gt; &quot;previous&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">filter &#123;</div><div class="line">    if &quot;your_app&quot; == [@metadata][app] &#123;</div><div class="line">        grok &#123;</div><div class="line">            match =&gt; &#123;</div><div class="line">                &quot;message&quot; =&gt; &quot;\A%&#123;TIMESTAMP_ISO8601:timestamp&#125;\s+\[%&#123;NOTSPACE:thread&#125;\]\s+%&#123;LOGLEVEL:level&#125;\s+\[(%&#123;UUID:traceId&#125;)?\]\s+%&#123;JAVACLASS:logger&#125;\s+-\s+%&#123;GREEDYDATA:message&#125;(&#123;(&#123;[^&#125;]+&#125;,?\s*)*&#125;)?\s*$(?&lt;stacktrace&gt;(?m:.*))?&quot;</div><div class="line">            &#125;</div><div class="line">            overwrite =&gt; [ &quot;message&quot; ]</div><div class="line">        &#125;</div><div class="line">        mutate &#123;</div><div class="line">            remove_field =&gt; [&quot;path&quot;]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    # 针对一些特别日志输出, 做一些个性化配置</div><div class="line">    if &quot;your_app&quot; == [@metadata][app] and &quot;net.sephy.filter.UserRequestLoggingFilter&quot; == [logger] &#123;</div><div class="line">        json &#123;</div><div class="line">    		source =&gt; &quot;message&quot;</div><div class="line">        &#125;</div><div class="line">        mutate &#123;</div><div class="line">            update =&gt; &#123; &quot;[@metadata][document_type]&quot; =&gt; &quot;access_log&quot; &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; else if &quot;your_app&quot; == [@metadata][app] and &quot;net.sephy.util.TaskLogger&quot; == [logger] &#123;</div><div class="line">        mutate &#123;</div><div class="line">            update =&gt; &#123; &quot;[@metadata][document_type]&quot; =&gt; &quot;schedule_log&quot; &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">output &#123;</div><div class="line">    if &quot;your_app&quot; == [@metadata][app] &#123;</div><div class="line">        elasticsearch &#123; </div><div class="line">      		hosts =&gt; [&quot;localhost:9200&quot;]    # 请改成 对应的 elasticsearch 地址</div><div class="line">      		index =&gt; &quot;logstash-%&#123;+YYYY.MM.dd&#125;&quot;</div><div class="line">            document_type =&gt; &quot;%&#123;[@metadata][document_type]&#125;&quot;</div><div class="line">      		codec =&gt; json</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    stdout &#123; codec =&gt; rubydebug &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logstash/">Logstash</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Nginx路径匹配规则" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/25/Nginx路径匹配规则/" class="article-date">
+      <time datetime="2016-07-25T09:13:00.000Z" itemprop="datePublished">2016-07-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/25/Nginx路径匹配规则/">Nginx路径匹配规则</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="location匹配规则"><a href="#location匹配规则" class="headerlink" title="location匹配规则"></a>location匹配规则</h4><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>正则匹配, 区分大小写</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>正则匹配, 不区分大小写</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>普通字符匹配, 如果该选项匹配, 只匹配该选项, 不匹配别的选项, 一般用来匹配目录; 如果最大前缀匹配的路径以“^~”开始，那么nginx不再检查正则表达式</td>
+</tr>
+<tr>
+<td>=</td>
+<td>普通字符精确匹配; 使用“=”前缀可以定义URI和路径的精确匹配. 如果发现匹配, 则终止路径查找.</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>定义一个命名的 location, 使用在内部定向时, 例如 error_page, try_files</td>
+</tr>
+</tbody>
+</table>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/25/Nginx路径匹配规则/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Nginx变量" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/25/Nginx变量/" class="article-date">
+      <time datetime="2016-07-25T08:41:02.000Z" itemprop="datePublished">2016-07-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/25/Nginx变量/">Nginx变量</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><strong>$arg_name</strong><br>请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name</p>
+<p><strong>$args</strong><br>请求中的参数值</p>
+<p><strong>$binary_remote_addr</strong><br>客户端地址的二进制形式, 固定长度为4个字节</p>
+<p><strong>$body_bytes_sent</strong><br>传输给客户端的字节数，响应头不计算在内；这个变量和Apache的mod_log_config模块中的“%B”参数保持兼容</p>
+<p><strong>$bytes_sent</strong><br>传输给客户端的字节数</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/25/Nginx变量/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Java关键字synchronized" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/21/Java关键字synchronized/" class="article-date">
+      <time datetime="2016-07-21T09:36:13.000Z" itemprop="datePublished">2016-07-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/21/Java关键字synchronized/">Java关键字synchronized</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h4 id="同步的基础"><a href="#同步的基础" class="headerlink" title="同步的基础"></a>同步的基础</h4><p>Java中的每一个对象都可以作为锁.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Object object = <span class="keyword">new</span> Object();</div><div class="line">    <span class="comment">// 1. 对于同步方法, 锁是当前实例对象(this)</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 2. 对于静态同步方法, 锁是当前对象的Class对象(SynchronizedTest.class)</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 3. 对于同步方法块, 锁是synchonized括号里配置的对象(object)</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">synchronized</span> (object) &#123;</div><div class="line">            <span class="comment">// do something</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Java关键字volatile" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/21/Java关键字volatile/" class="article-date">
+      <time datetime="2016-07-21T08:32:36.000Z" itemprop="datePublished">2016-07-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/21/Java关键字volatile/">Java关键字volatile</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h4 id="volatile-定义"><a href="#volatile-定义" class="headerlink" title="volatile 定义"></a>volatile 定义</h4><p>java编程语言允许线程访问共享变量, 为了确保共享变量能被准确和一致的更新,线程应该确保通过排他锁单独获得这个变量. Java 语言提供了一种稍弱的同步机制, 即 volatile 变量.用来确保将变量的更新操作通知到其他线程,保证了新值能立即同步到主内存, 以及每次使用前立即从主内存刷新. 当把变量声明为volatile类型后, 编译器与运行时都会注意到这个变量是共享的.</p>
+<ol>
+<li><p>volatile不能保证原子性。简单说，java有所谓主内存区和线程栈，同一变量在主内存区和各个线程的栈都存在副本(一对多)。volatile提供的可见性, 是说每个线程访问用volatile修饰的变量时，volatile都保证线程能从主存区加载到当前最新的值(反之，线程修改后同步到主存的值也要保证对其他线程的可见);</p>
+</li>
+<li><p>因为非原子性，volatile往往不能保证线程安全;</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile/">volatile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-maven打包时修改配置文件" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -265,8 +613,6 @@
       <a href="/2016/07/04/maven打包时修改配置文件/" class="article-date">
       <time datetime="2016-07-04T07:43:45.000Z" itemprop="datePublished">2016-07-04</time>
 </a>
-
-
     </div>
   
   <div class="article-inner">
@@ -288,11 +634,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>目前有这样一个需求, 在开发时 spring profile 使用 dev 配置, 在打包部署时使用 product 配置, 实际上需求就是将 web.xml 中的</p>
+              <p>目前有这样一个需求, 在开发时 spring profile 使用 dev 配置, 在打包部署时使用 product 配置, 实际上需求就是将 web.xml 中的</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>spring.profiles.default<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>改为</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>spring.profiles.default<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>product<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>maven 自带的 <a href="https://link.zhihu.com/?target=http%3A//maven.apache.org/plugins/maven-resources-plugin/index.html" target="_blank" rel="external">Apache Maven Resources Plugin</a> 需要配合 <strong>${..}</strong> 来进行变量过滤/替换, 如果不想引入变量怎么解决?找到个插件 <a href="https://github.com/juven/portable-config-maven-plugin" target="_blank" rel="external">portable-config-maven-plugin</a></p>
+<p>maven 自带的 <a href="https://link.zhihu.com/?target=http%3A//maven.apache.org/plugins/maven-resources-plugin/index.html">Apache Maven Resources Plugin</a> 需要配合 <strong>${..}</strong> 来进行变量过滤/替换, 如果不想引入变量怎么解决?找到个插件 <a href="https://github.com/juven/portable-config-maven-plugin">portable-config-maven-plugin</a></p>
 <p>作者是这样介绍这个插件的</p>
 <blockquote>
 <p>When you want to deploy your application into different environments, say typical dev/test/staging/production, often you will want to change some configuration at build time. In Maven, this is a feature called Resource Filtering, which works quite well except you have to use Maven Property for every configuration you want to change. So you will have:</p>
@@ -302,14 +648,7 @@ database.jdbc.password=${db.password}
 </code></pre><p>So there’s no default configuration in this case. With portable-config-maven-plugin, all configurations have default value, and you configure build to change the configurations only when you need to.</p>
 </blockquote>
 <p>重点就是说 Resource Filtering 无法实现默认配置, 如果遇上我这种在开发阶段需要有默认开发配置的需求, 这个插件就排上用场了.</p>
-<p>下面是我在工程中使用的例子:</p>
-<p>pom.xml 配置</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- 打包时替换 web.xml 中的 spring 配置文件信息 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.juvenxu.portable-config-maven-plugin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>portable-config-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>replace-package<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">portableConfig</span>&gt;</span>src/main/portable/product.xml<span class="tag">&lt;/<span class="name">portableConfig</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>product.xml 替换规则文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">portable-config</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">config-file</span> <span class="attr">path</span>=<span class="string">"WEB-INF/web.xml"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">replace</span> <span class="attr">xpath</span>=<span class="string">"//web-app/context-param[1]/param-value"</span>&gt;</span>product<span class="tag">&lt;/<span class="name">replace</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">config-file</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">portable-config</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>运行 maven 打包命令的时候</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn clean package</div></pre></td></tr></table></figure>
-<p>插件会根据配置自动搜索要替换的内容进行替换</p>
-
+          
       
     </div>
     
@@ -322,6 +661,10 @@ database.jdbc.password=${db.password}
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2016/07/04/maven打包时修改配置文件/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -345,8 +688,6 @@ database.jdbc.password=${db.password}
       <a href="/2016/07/02/PostgreSQL升级/" class="article-date">
       <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">2016-07-02</time>
 </a>
-
-
     </div>
   
   <div class="article-inner">
@@ -410,8 +751,6 @@ database.jdbc.password=${db.password}
       <a href="/2016/07/02/redis 编译安装/" class="article-date">
       <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">2016-07-02</time>
 </a>
-
-
     </div>
   
   <div class="article-inner">
@@ -472,8 +811,6 @@ database.jdbc.password=${db.password}
       <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/" class="article-date">
       <time datetime="2016-07-01T05:13:20.000Z" itemprop="datePublished">2016-07-01</time>
 </a>
-
-
     </div>
   
   <div class="article-inner">
@@ -495,19 +832,10 @@ database.jdbc.password=${db.password}
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="Ubuntu下编译安装-hybla-模块"><a href="#Ubuntu下编译安装-hybla-模块" class="headerlink" title="Ubuntu下编译安装 hybla 模块"></a>Ubuntu下编译安装 hybla 模块</h1><p>####1.查看vps内核版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">uname -r</div><div class="line">3.19.1-x86_64-linode53</div></pre></td></tr></table></figure></p>
-<p>####2.下载相同版本的内核源代码<br><a href="https://www.kernel.org/pub/linux/kernel/v3.0/" target="_blank" rel="external">https://www.kernel.org/pub/linux/kernel/v3.0/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/src</div><div class="line">wget https://www.kernel.org/pub/linux/kernel/v3.0/linux-3.19.1.tar.gz</div><div class="line">tar xvf linux-3.19.1.tar.gz</div></pre></td></tr></table></figure></p>
+              <h1 id="Ubuntu下编译安装-hybla-模块"><a href="#Ubuntu下编译安装-hybla-模块" class="headerlink" title="Ubuntu下编译安装 hybla 模块"></a>Ubuntu下编译安装 hybla 模块</h1><p>####1.查看vps内核版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">uname -r</div><div class="line">3.19.1-x86_64-linode53</div></pre></td></tr></table></figure></p>
+<p>####2.下载相同版本的内核源代码<br><a href="https://www.kernel.org/pub/linux/kernel/v3.0/">https://www.kernel.org/pub/linux/kernel/v3.0/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/src</div><div class="line">wget https://www.kernel.org/pub/linux/kernel/v3.0/linux-3.19.1.tar.gz</div><div class="line">tar xvf linux-3.19.1.tar.gz</div></pre></td></tr></table></figure></p>
 <p>####3.安装内核编译所需要的工具包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get update</div><div class="line">apt-get install -y build-esstential libncurses5-dev libssl-dev</div></pre></td></tr></table></figure></p>
-<p>####4.配置内核编译文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd linux-3.19.1</div><div class="line">zcat /proc/config.gz &gt; .config</div></pre></td></tr></table></figure></p>
-<p>修改配置文件 .config<br>查找配置 CONFIG_TCP_CONG_CUBIC=y<br>增加 hybla 模块 添加行 CONFIG_TCP_CONG_HYBLA=y<br>增加 htcp 模块 添加行 CONFIG_TCP_CONG_HTCP=y<br>现在我们执行编译命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make</div></pre></td></tr></table></figure></p>
-<p>####5.编译模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd net/ipv4</div><div class="line">mv Makefile Makefile.old</div></pre></td></tr></table></figure></p>
-<p>以下是 hybla 模块的 Makefile 内容, 请把其中 KDIR 替换为你自己的源码路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Makefile for tcp_hybla.co</div><div class="line">obj-m := tcp_hybla.o</div><div class="line">KDIR := /usr/src/linux-3.19.1</div><div class="line">PWD := $(shell pwd)</div><div class="line">default:</div><div class="line">$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules</div></pre></td></tr></table></figure></p>
-<p>####6.开始编译模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/src/linux-3.19.1</div><div class="line">make modules</div></pre></td></tr></table></figure></p>
-<p>####7.测试模块<br>这里以 hybla 模块为例来讲解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ./net/ipv4</div><div class="line">insmod ./tcp_hybla.ko</div><div class="line">sysctl net.ipv4.tcp_available_congestion_control</div></pre></td></tr></table></figure></p>
-<p>如果成功加载的话, 会显示如下信息:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net.ipv4.tcp_available_congestion_control = cubic reno hybla</div></pre></td></tr></table></figure></p>
-<p>####8.设置开机自动加载该模块<br>我们仍以 hybla 模块为例<br>首先我们将模块复制到 /libs/modules/3.19.1-x86_64-linode53<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir -p /lib/modules/3.19.1-x86_64-linode53/kernel/net/ipv4</div><div class="line">cd /lib/modules/3.19.1-x86_64-linode53/kernel/net/ipv4</div><div class="line">cp -a /usr/src/linux-3.19.1/net/ipv4/tcp_hybla.ko /lib/modules/3.19.1-x86_64-linode53/kernel/net/ipv4/</div><div class="line">cd /lib/modules/3.19.1-x86_64-linode53</div><div class="line">depmod -a</div></pre></td></tr></table></figure></p>
-<p>####9.设置hybla为优先加载<br>编辑 /etc/sysctl.conf 文件, 在文件的末尾添加如下行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net.ipv4.tcp_congestion_control = hybla</div></pre></td></tr></table></figure></p>
-
+          
       
     </div>
     
@@ -520,6 +848,10 @@ database.jdbc.password=${db.password}
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -543,8 +875,6 @@ database.jdbc.password=${db.password}
       <a href="/2015/04/09/Spring常用接口(一)/" class="article-date">
       <time datetime="2015-04-09T15:06:51.000Z" itemprop="datePublished">2015-04-09</time>
 </a>
-
-
     </div>
   
   <div class="article-inner">
@@ -568,10 +898,10 @@ database.jdbc.password=${db.password}
           
         <p>spring 提供了一些非常好用的接口，下面介绍一些容器管理相关的常用接口</p>
 <p><em>org.springframework.beans.factory.InitializingBean</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InitializingBean</span> </span>&#123;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InitializingBean</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在 spring 容器完成一个实例对象所有属性注入方法调用之后，如果该实例对象类型实现了 <em>InitializingBean</em> 接口，容器便会调用 afterPropertiesSet() 方法。通过实现 <em>InitializingBean</em>接口，我们可以更好的完成一些初始化工作。</p>
 <p><em>org.springframework.beans.factory.DisposableBean</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DisposableBean</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DisposableBean</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在 spring 容器关闭时，所有实现了<em>DisposableBean</em> 接口的实例都会调用 destroy() 方法。通过实现 <em>DisposableBean</em> 接口，我们可以更好的完成一些类似于资源释放的工作。</p>
 
       
@@ -613,14 +943,14 @@ database.jdbc.password=${db.password}
                 2016 虾米
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visitors: 
+                        <span id="site-visit" >本站到访数: 
                             <span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
@@ -630,7 +960,7 @@ database.jdbc.password=${db.password}
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Hits: 
+                        <span id="page-visit">本页阅读量: 
                             <span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
@@ -662,34 +992,11 @@ database.jdbc.password=${db.password}
 
 
 
-
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
-<script>
-    // Open in New Window
-    
-        var oOpenInNew = {
-            
-            
-            
-            
-            
-            
-             archives: ".archive-article-title", 
-             miniArchives: "a.post-list-link", 
-            
-             friends: "#js-friends a", 
-             socail: ".social a" 
-        }
-        for (var x in oOpenInNew) {
-            $(oOpenInNew[x]).attr("target", "_blank");
-        }
-    
-</script>
-
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
   </div>

@@ -15,28 +15,91 @@
 
 
 
-<meta name="description" content="在 PostgreSQL 从9.4 升级为 9.5后, 发现服务无法启动了, 报错如下
+<meta name="description" content="location匹配规则
 
-The data directory was initialized by PostgreSQL version 9.4, which is not compatible with this version 9.5.2
 
-搜索后, 发现可以使用 PostgreSQL 提供的 pg_upgrade 进行数据库升">
+符号
+说明
+
+
+
+
+~
+正则匹配, 区分大小写
+
+
+~*
+正则匹配, 不区分大小写
+
+
+^~
+普通字符匹配, 如果该选项匹配, 只匹配该选项, 不匹配别的选项, 一般用来匹配目录; 如果最大前缀匹配的路径以“^~”开始，那么nginx不再检查正则表达式
+
+
+=
+普通字符精确匹配; 使用“=”前缀可以定义URI和路径的精确匹配. 如果发现匹配, 则终止路径查找.
+
+
+~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PostgreSQL升级">
-<meta property="og:url" content="http://yoursite.com/2016/07/02/PostgreSQL升级/index.html">
+<meta property="og:title" content="Nginx路径匹配规则">
+<meta property="og:url" content="http://yoursite.com/2016/07/25/Nginx路径匹配规则/index.html">
 <meta property="og:site_name" content="虾米笔记">
-<meta property="og:description" content="在 PostgreSQL 从9.4 升级为 9.5后, 发现服务无法启动了, 报错如下
+<meta property="og:description" content="location匹配规则
 
-The data directory was initialized by PostgreSQL version 9.4, which is not compatible with this version 9.5.2
 
-搜索后, 发现可以使用 PostgreSQL 提供的 pg_upgrade 进行数据库升">
-<meta property="og:updated_time" content="2016-07-04T07:22:38.000Z">
+符号
+说明
+
+
+
+
+~
+正则匹配, 区分大小写
+
+
+~*
+正则匹配, 不区分大小写
+
+
+^~
+普通字符匹配, 如果该选项匹配, 只匹配该选项, 不匹配别的选项, 一般用来匹配目录; 如果最大前缀匹配的路径以“^~”开始，那么nginx不再检查正则表达式
+
+
+=
+普通字符精确匹配; 使用“=”前缀可以定义URI和路径的精确匹配. 如果发现匹配, 则终止路径查找.
+
+
+~">
+<meta property="og:updated_time" content="2016-08-08T02:49:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PostgreSQL升级">
-<meta name="twitter:description" content="在 PostgreSQL 从9.4 升级为 9.5后, 发现服务无法启动了, 报错如下
+<meta name="twitter:title" content="Nginx路径匹配规则">
+<meta name="twitter:description" content="location匹配规则
 
-The data directory was initialized by PostgreSQL version 9.4, which is not compatible with this version 9.5.2
 
-搜索后, 发现可以使用 PostgreSQL 提供的 pg_upgrade 进行数据库升">
+符号
+说明
+
+
+
+
+~
+正则匹配, 区分大小写
+
+
+~*
+正则匹配, 不区分大小写
+
+
+^~
+普通字符匹配, 如果该选项匹配, 只匹配该选项, 不匹配别的选项, 一般用来匹配目录; 如果最大前缀匹配的路径以“^~”开始，那么nginx不再检查正则表达式
+
+
+=
+普通字符精确匹配; 使用“=”前缀可以定义URI和路径的精确匹配. 如果发现匹配, 则终止路径查找.
+
+
+~">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -68,7 +131,7 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>PostgreSQL升级 | 虾米笔记</title>
+<title>Nginx路径匹配规则 | 虾米笔记</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -269,11 +332,11 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-PostgreSQL升级" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Nginx路径匹配规则" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/02/PostgreSQL升级/" class="article-date">
-      <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">2016-07-02</time>
+      <a href="/2016/07/25/Nginx路径匹配规则/" class="article-date">
+      <time datetime="2016-07-25T09:13:00.000Z" itemprop="datePublished">2016-07-25</time>
 </a>
     </div>
   
@@ -286,7 +349,7 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
         
   
     <h1 class="article-title" itemprop="name">
-      PostgreSQL升级
+      Nginx路径匹配规则
     </h1>
   
 
@@ -297,7 +360,7 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -307,12 +370,57 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>在 PostgreSQL 从9.4 升级为 9.5后, 发现服务无法启动了, 报错如下</p>
+        <h4 id="location匹配规则"><a href="#location匹配规则" class="headerlink" title="location匹配规则"></a>location匹配规则</h4><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>正则匹配, 区分大小写</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>正则匹配, 不区分大小写</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>普通字符匹配, 如果该选项匹配, 只匹配该选项, 不匹配别的选项, 一般用来匹配目录; 如果最大前缀匹配的路径以“^~”开始，那么nginx不再检查正则表达式</td>
+</tr>
+<tr>
+<td>=</td>
+<td>普通字符精确匹配; 使用“=”前缀可以定义URI和路径的精确匹配. 如果发现匹配, 则终止路径查找.</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>定义一个命名的 location, 使用在内部定向时, 例如 error_page, try_files</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p>Nginx中将路径匹配分为两类: </p>
 <blockquote>
-<p>The data directory was initialized by PostgreSQL version 9.4, which is not compatible with this version 9.5.2</p>
+<ul>
+<li>前缀路径匹配, 即前缀字符串定义的路径, 如上配置文件中“/,/static/js/,/static/css/,/api,/trip/”</li>
+<li>正则表达式路径匹配, 即使用正则表达式需要在路径开始添加“~<em>”前缀 (不区分大小写), 或者“~”前缀(区分大小写)。如上配置文件中“/.ht,^/~([^/]+)(/?.</em>)$,.do$,/trip/, .php$,.(jpg|jpeg|gif|png|ico|css|zip|tgz|gz|rar|bz2|pdf|txt|tar||bmp|rtf|js|mov)”</li>
+</ul>
 </blockquote>
-<p>搜索后, 发现可以使用 PostgreSQL 提供的 pg_upgrade 进行数据库升级</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 停止 postgres</span></div><div class="line">pg_ctl -D /usr/<span class="built_in">local</span>/var/postgres stop <span class="_">-s</span> -m fast</div><div class="line"></div><div class="line"><span class="comment"># 初始化一个新的数据库</span></div><div class="line">initdb /usr/<span class="built_in">local</span>/var/postgres9.5 -E utf8</div><div class="line"></div><div class="line"><span class="comment"># 使用 pg_upgrade 命令将原先的数据库数据升级到新的数据库版本</span></div><div class="line">pg_upgrade \</div><div class="line">  <span class="_">-d</span> /usr/<span class="built_in">local</span>/var/postgres \</div><div class="line">  -D /usr/<span class="built_in">local</span>/var/postgres9.5 \</div><div class="line">  -b /usr/<span class="built_in">local</span>/Cellar/postgresql/9.4/bin/ \</div><div class="line">  -B /usr/<span class="built_in">local</span>/Cellar/postgresql/9.5/bin/ \</div><div class="line">  -v</div><div class="line"></div><div class="line"><span class="comment"># 重命名数据库目录</span></div><div class="line">mv /usr/<span class="built_in">local</span>/var/postgres /usr/<span class="built_in">local</span>/var/postgres9.4</div><div class="line">mv /usr/<span class="built_in">local</span>/var/postgres9.5 /usr/<span class="built_in">local</span>/var/postgres</div><div class="line"></div><div class="line"><span class="comment"># 重新启动数据库服务</span></div><div class="line">pg_ctl -D /usr/<span class="built_in">local</span>/var/postgres <span class="_">-l</span> /usr/<span class="built_in">local</span>/var/postgres/server.log start</div></pre></td></tr></table></figure>
+<p>Nginx首先检查前缀字符串定义的路径 (前缀路径), 在这些路径中找到能最精确匹配请求URI的路径。然后Nginx按在配置文件中的出现顺序检查正则表达式路径, 匹配上某个路径后即停止匹配并使用该路径的配置, 否则使用最大前缀匹配的路径的配置. </p>
+<figure class="highlight crmsh"><figcaption><span>例子</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">location</span> <span class="title">= / &#123;</span></div><div class="line">  # 精确匹配 / ，主机名后面不能带任何字符串</div><div class="line">  [ configuration A ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></div><div class="line">  # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求</div><div class="line">  # 但是正则和最长字符串会优先匹配</div><div class="line">  [ configuration B ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">/documents</span>/ &#123;</div><div class="line">  <span class="comment"># 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索</span></div><div class="line">  <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></div><div class="line">  [ configuration C ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">~ /documents</span>/Abc &#123;</div><div class="line">  <span class="comment"># 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索</span></div><div class="line">  <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></div><div class="line">  [ configuration CC ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">^~ /images</span>/ &#123;</div><div class="line">  <span class="comment"># 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。</span></div><div class="line">  [ configuration D ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">~* \.(gif</span>|jpg|jpeg)$ &#123;</div><div class="line">  <span class="comment"># 匹配所有以 gif,jpg或jpeg 结尾的请求</span></div><div class="line">  <span class="comment"># 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则</span></div><div class="line">  [ configuration E ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">/images</span>/ &#123;</div><div class="line">  <span class="comment"># 字符匹配到 /images/，继续往下，会发现 ^~ 存在</span></div><div class="line">  [ configuration F ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">/images</span>/abc &#123;</div><div class="line">  <span class="comment"># 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在</span></div><div class="line">  <span class="comment"># F与G的放置顺序是没有关系的</span></div><div class="line">  [ configuration G ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">~ /images</span>/abc/ &#123;</div><div class="line">  <span class="comment"># 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用</span></div><div class="line">    [ configuration H ] </div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">~* /js</span>/.*/\.js</div></pre></td></tr></table></figure>
+<h5 id="上面的匹配结果-按照上面的location写法，以下的匹配示例成立"><a href="#上面的匹配结果-按照上面的location写法，以下的匹配示例成立" class="headerlink" title="上面的匹配结果, 按照上面的location写法，以下的匹配示例成立:"></a>上面的匹配结果, 按照上面的location写法，以下的匹配示例成立:</h5><p>/ =&gt; config A<br>精确完全匹配，即使/index.html也匹配不了</p>
+<p>/downloads/download.html =&gt; config B<br>匹配B以后，往下没有任何匹配，采用B</p>
+<p>/images/1.gif =&gt; configuration D<br>匹配到F，往下匹配到D，停止往下</p>
+<p>/images/abc/def =&gt; config D<br>最长匹配到G，往下匹配D，停止往下<br>你可以看到 任何以/images/开头的都会匹配到D并停止，FG写在这里是没有任何意义的，H是永远轮不到的，这里只是为了说明匹配顺序</p>
+<p>/documents/document.html =&gt; config C<br>匹配到C，往下没有任何匹配，采用C</p>
+<p>/documents/1.jpg =&gt; configuration E<br>匹配到C，往下正则匹配到E</p>
+<p>/documents/Abc.jpg =&gt; config CC<br>最长匹配到C，往下正则顺序匹配到CC，不会往下到E</p>
+<h4 id="实际使用建议"><a href="#实际使用建议" class="headerlink" title="实际使用建议"></a>实际使用建议</h4><blockquote>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</span></div><div class="line"><span class="comment"># 直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。</span></div><div class="line"><span class="comment"># 这里是直接转发给后端应用服务器了，也可以是一个静态首页</span></div><div class="line"><span class="comment"># 第一个必选规则</span></div><div class="line"><span class="keyword">location</span> <span class="title">= / &#123;</span></div><div class="line">    proxy_pass http://tomcat:<span class="number">8080</span>/index</div><div class="line">&#125;</div><div class="line"><span class="comment"># 第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项</span></div><div class="line"><span class="comment"># 有两种配置模式，目录匹配或后缀匹配,任选其一或搭配使用</span></div><div class="line"><span class="keyword">location</span> <span class="title">^~ /static</span>/ &#123;</div><div class="line">    root /webroot/static/;</div><div class="line">&#125;</div><div class="line"><span class="keyword">location</span> <span class="title">~* \.(gif</span>|jpg|jpeg|png|css|js|ico)$ &#123;</div><div class="line">    root /webroot/res/;</div><div class="line">&#125;</div><div class="line"><span class="comment"># 第三个规则就是通用规则，用来转发动态请求到后端应用服务器</span></div><div class="line"><span class="comment"># 非静态文件请求就默认是动态请求，自己根据实际把握</span></div><div class="line"><span class="comment"># 毕竟目前的一些框架的流行，带.php,.jsp后缀的情况很少了</span></div><div class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></div><div class="line">    proxy_pass http://tomcat:<span class="number">8080</span>/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</blockquote>
+<p><strong> 原文链接地址 </strong> (<a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a>)</p>
 
       
     </div>
@@ -321,13 +429,13 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/07/02/PostgreSQL升级/">PostgreSQL升级</a></p>
+        <p><span>本文标题:</span><a href="/2016/07/25/Nginx路径匹配规则/">Nginx路径匹配规则</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">虾米</a></p>
-        <p><span>发布时间:</span>2016-07-02, 12:40:17</p>
-        <p><span>最后更新:</span>2016-07-04, 15:22:38</p>
+        <p><span>发布时间:</span>2016-07-25, 17:13:00</p>
+        <p><span>最后更新:</span>2016-08-08, 10:49:52</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/07/02/PostgreSQL升级/" title="PostgreSQL升级">http://yoursite.com/2016/07/02/PostgreSQL升级/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/02/PostgreSQL升级/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/07/25/Nginx路径匹配规则/" title="Nginx路径匹配规则">http://yoursite.com/2016/07/25/Nginx路径匹配规则/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/25/Nginx路径匹配规则/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -340,15 +448,15 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/04/maven打包时修改配置文件/">
-                    maven打包时修改配置文件
+                <a href="/2016/08/09/Logstash读取log4j2日志文件/">
+                    Logstash读取log4j2日志文件
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/07/02/redis 编译安装/">
-                    Redis 编译安装
+                <a href="/2016/07/25/Nginx变量/">
+                    Nginx变量
                 </a>
             </div>
         
@@ -359,7 +467,7 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#location匹配规则"><span class="toc-number">1.</span> <span class="toc-text">location匹配规则</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#上面的匹配结果-按照上面的location写法，以下的匹配示例成立"><span class="toc-number">1.1.</span> <span class="toc-text">上面的匹配结果, 按照上面的location写法，以下的匹配示例成立:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实际使用建议"><span class="toc-number">2.</span> <span class="toc-text">实际使用建议</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn,
@@ -390,7 +498,7 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"PostgreSQL升级　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Nginx路径匹配规则　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -410,7 +518,7 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/04/maven打包时修改配置文件/" title="上一篇: maven打包时修改配置文件">
+            <a href="/2016/08/09/Logstash读取log4j2日志文件/" title="上一篇: Logstash读取log4j2日志文件">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -418,7 +526,7 @@ The data directory was initialized by PostgreSQL version 9.4, which is not compa
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/07/02/redis 编译安装/" title="下一篇: Redis 编译安装">
+            <a href="/2016/07/25/Nginx变量/" title="下一篇: Nginx变量">
                 <i class="fa fa-angle-right"></i>
             </a>
         
