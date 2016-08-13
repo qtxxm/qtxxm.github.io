@@ -15,19 +15,18 @@
 
 
 
-<meta name="description" content="安装前准备工作123#Install gcc &amp;amp; tcl, needed for compilationyum install -y gcc*yum install -y tcl
-正式安装123456789tar xzf redis-3.0.1.tar.gzcd redis-3.0.1makemake testmake installcd utilschmod +x install_ser">
+<meta name="description" content="看了下 Java8 的 (JVM规范)[https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf]，JVM 运行时数据区(Run-Time Data Areas)是在JVM运行的时候操作系统所分配的内存区，具体可以分为: pc 寄存器(The pc Register)，Java 虚拟机栈(Java Virtual Machine Stacks)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis 编译安装">
-<meta property="og:url" content="http://yoursite.com/2016/07/02/redis 编译安装/index.html">
+<meta property="og:title" content="JVM内存模型">
+<meta property="og:url" content="http://yoursite.com/2016/08/11/JVM内存模型/index.html">
 <meta property="og:site_name" content="虾米笔记">
-<meta property="og:description" content="安装前准备工作123#Install gcc &amp;amp; tcl, needed for compilationyum install -y gcc*yum install -y tcl
-正式安装123456789tar xzf redis-3.0.1.tar.gzcd redis-3.0.1makemake testmake installcd utilschmod +x install_ser">
-<meta property="og:updated_time" content="2016-07-04T07:25:36.000Z">
+<meta property="og:description" content="看了下 Java8 的 (JVM规范)[https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf]，JVM 运行时数据区(Run-Time Data Areas)是在JVM运行的时候操作系统所分配的内存区，具体可以分为: pc 寄存器(The pc Register)，Java 虚拟机栈(Java Virtual Machine Stacks)">
+<meta property="og:image" content="http://7xlm7s.com1.z0.glb.clouddn.com/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png?imageView2/2/w/1000/h/500&v=20160812">
+<meta property="og:updated_time" content="2016-08-12T08:02:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis 编译安装">
-<meta name="twitter:description" content="安装前准备工作123#Install gcc &amp;amp; tcl, needed for compilationyum install -y gcc*yum install -y tcl
-正式安装123456789tar xzf redis-3.0.1.tar.gzcd redis-3.0.1makemake testmake installcd utilschmod +x install_ser">
+<meta name="twitter:title" content="JVM内存模型">
+<meta name="twitter:description" content="看了下 Java8 的 (JVM规范)[https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf]，JVM 运行时数据区(Run-Time Data Areas)是在JVM运行的时候操作系统所分配的内存区，具体可以分为: pc 寄存器(The pc Register)，Java 虚拟机栈(Java Virtual Machine Stacks)">
+<meta name="twitter:image" content="http://7xlm7s.com1.z0.glb.clouddn.com/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png?imageView2/2/w/1000/h/500&v=20160812">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Redis 编译安装 | 虾米笔记</title>
+<title>JVM内存模型 | 虾米笔记</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -260,11 +259,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-redis 编译安装" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-JVM内存模型" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/02/redis 编译安装/" class="article-date">
-      <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">2016-07-02</time>
+      <a href="/2016/08/11/JVM内存模型/" class="article-date">
+      <time datetime="2016-08-11T08:43:43.000Z" itemprop="datePublished">2016-08-11</time>
 </a>
     </div>
   
@@ -277,7 +276,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Redis 编译安装
+      JVM内存模型
     </h1>
   
 
@@ -288,7 +287,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -298,10 +297,32 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="安装前准备工作"><a href="#安装前准备工作" class="headerlink" title="安装前准备工作"></a>安装前准备工作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#Install gcc &amp; tcl, needed for compilation</div><div class="line">yum install -y gcc*</div><div class="line">yum install -y tcl</div></pre></td></tr></table></figure>
-<h4 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tar xzf redis-3.0.1.tar.gz</div><div class="line">cd redis-3.0.1</div><div class="line">make</div><div class="line">make test</div><div class="line">make install</div><div class="line">cd utils</div><div class="line">chmod +x install_server.sh</div><div class="line">./install_server.sh</div><div class="line">####</div></pre></td></tr></table></figure>
-<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service redis_6379 status</div><div class="line">service redis_6379 start</div></pre></td></tr></table></figure>
-<h4 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/redis/6379.conf</div><div class="line"># find # requirepass foobared </div><div class="line">#replace it with your password</div><div class="line">requirepass somePassword</div><div class="line">service redis_6379 restart</div></pre></td></tr></table></figure>
+        <p>看了下 <strong>Java8</strong> 的 (JVM规范)[<a href="https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf]，JVM" target="_blank" rel="external">https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf]，JVM</a> 运行时数据区(Run-Time Data Areas)是在JVM运行的时候操作系统所分配的内存区，具体可以分为: pc 寄存器(The pc Register)，Java 虚拟机栈(Java Virtual Machine Stacks)，Java 堆(Heap)，方法区(Method Area)，运行时常量池(Run-Time Constant Pool)，本地方法栈(Native Method Stacks)。</p>
+<p>画了张图，大致如下(可能不是十分准确)：</p>
+<div align="center"><br><img src="http://7xlm7s.com1.z0.glb.clouddn.com/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png?imageView2/2/w/1000/h/500&amp;v=20160812" alt="JVM内存区域划分"><br></div>
+
+<h4 id="pc-寄存器-The-pc-Register"><a href="#pc-寄存器-The-pc-Register" class="headerlink" title="pc 寄存器(The pc Register)"></a>pc 寄存器(The pc Register)</h4><p>JVM 支持多个线程(Thread)同时运行，每个线程都有自己的pc寄存器(程序计数器)。在任意时刻，一个 Java 虚拟机线程只会执行一个方法的 代码，这个正在被线程执行的方法称为该线程的当前方法。倘若当前执行的是 JVM 的方法，则该寄存器中保存当前执行指令的地址；倘若执行的是 native 方法，则PC寄存器中为 undefined。</p>
+<h4 id="虚拟机栈-Java-Virtual-Machine-Stacks"><a href="#虚拟机栈-Java-Virtual-Machine-Stacks" class="headerlink" title="虚拟机栈(Java Virtual Machine Stacks)"></a>虚拟机栈(Java Virtual Machine Stacks)</h4><p>每个线程有一个私有的栈(JVM Stack)，随着线程的创建而创建。栈里面存着的是一种叫”栈帧”的东西，每个方法会创建一个栈帧(Frame)，栈帧中存放了局部变量表(基本数据类型和对象引用)、操作数栈、方法出口等信息。因为除了栈帧的出栈和入栈之外，Java 虚拟机栈不会 再受其他因素的影响，所以栈帧可以在堆中分配，Java 虚拟机栈所使用的内存不需要保证<br>是连续的。栈的大小可以固定也可以动态扩展。</p>
+<blockquote>
+<p>如果线程请求分配的栈容量超过 Java 虚拟机栈允许的最大容量,Java 虚拟机将会抛<br>出一个 <strong> StackOver owError </strong> 异常，可以通过 <strong> -Xss </strong> 来设置每个线程栈的大小。<br>如果 Java 虚拟机栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，<br>或者在创建新的线程时没有足够的内存去创建对应的虚拟机栈，那 Java 虚拟机将会 抛出一个 <strong> OutOfMemoryError </strong> 异常。</p>
+</blockquote>
+<h4 id="堆-Heap"><a href="#堆-Heap" class="headerlink" title="堆(Heap)"></a>堆(Heap)</h4><p>堆内存是 JVM 所有线程共享的部分，在虚拟机启动的时候就已经创建。所有的对象和数组都在堆上进行分配。这部分空间可通过 <strong>GC</strong> 进行回收。当申请不到空间时会抛出 <strong> OutOfMemoryError </strong>。<br>Java 堆的容量可以是固定的,也可以随着程序执行的需求动态扩展,并在不需要过<br>多空间时自动收缩。Java 堆所使用的内存不需要保证是连续的。</p>
+<blockquote>
+<p>如果实际所需的堆超过了自动内存管理系统能提供的最大容量,那 Java 虚拟机将会<br>抛出一个 <strong> OutOfMemoryError </strong> 异常。</p>
+</blockquote>
+<h4 id="方法区-Method-Area"><a href="#方法区-Method-Area" class="headerlink" title="方法区(Method Area)"></a>方法区(Method Area)</h4><p>方法区也是所有线程共享。主要用于存储类的结构信息，例如：常量池(runtime constant pool)、字段和方法数据、构造函数和普通方法的字节码内容，还包括一些 在类、实例、接口初始化时用到的特殊方法。方法区在虚拟机启动的时候创建，逻辑上属于堆的一部分，但是为了与堆进行区分，通常又叫“非堆”。</p>
+<blockquote>
+<p>如果方法区的内存空间不能满足内存分配请求,那么 Java 虚拟机将抛出一个<br><strong> OutOfMemoryError </strong> 异常。</p>
+</blockquote>
+<h4 id="运行时常量池-Run-Time-Constant-Pool"><a href="#运行时常量池-Run-Time-Constant-Pool" class="headerlink" title="运行时常量池(Run-Time Constant Pool)"></a>运行时常量池(Run-Time Constant Pool)</h4><p>运行时常量池(runtime constant pool)是class文件中每一个类或接口的常量池表(constant_pool table)的运行时表示形式，它包括了若干种不同的常量，从编译期可知的数值字面量到必须在运行期解析后才能获得的方法或字段引用。运行时常量池类似于传<br>统语言中的符号表(symbol table)，不过它存储数据的范围比通常意义上的符号表要更为广泛。每一个运行时常量池都在 Java 虚拟机的方法区中分配，在加载类和接口<br>到虚拟机后，就创建对应的运行时常量池。 </p>
+<blockquote>
+<p>当创建类或接口时，如果构造运行时常量池所需要的内存空间超过了方法区所能提供<br>的最大值，那么 Java 虚拟机将会抛出一个 OutOfMemoryError 异常。</p>
+</blockquote>
+<h4 id="本地方法栈-Native-Method-Stacks"><a href="#本地方法栈-Native-Method-Stacks" class="headerlink" title="本地方法栈(Native Method Stacks)"></a>本地方法栈(Native Method Stacks)</h4><p>Java 虚拟机实现可能会使用到传统的栈(通常称为 C stack)来支持 native 方法(指使 用 Java 以外的其他语言编写的方法)的执行，这个栈就是本地方法栈(native method stack)。</p>
+<blockquote>
+<p>如果本地方法栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者<br>在创建新的线程时没有足够的内存去创建对应的本地方法栈，那么 Java 虚拟机将会 抛出一个 <strong> OutOfMemoryError </strong> 异常。<br>如果线程请求分配的栈容量超过本地方法栈允许的最大容量，Java 虚拟机将会抛出一个 <strong> StackOverowError </strong> 异常。 </p>
+</blockquote>
+
       
     </div>
     
@@ -309,13 +330,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/07/02/redis 编译安装/">Redis 编译安装</a></p>
+        <p><span>本文标题:</span><a href="/2016/08/11/JVM内存模型/">JVM内存模型</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">虾米</a></p>
-        <p><span>发布时间:</span>2016-07-02, 12:40:17</p>
-        <p><span>最后更新:</span>2016-07-04, 15:25:36</p>
+        <p><span>发布时间:</span>2016-08-11, 16:43:43</p>
+        <p><span>最后更新:</span>2016-08-12, 16:02:51</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/07/02/redis 编译安装/" title="Redis 编译安装">http://yoursite.com/2016/07/02/redis 编译安装/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/02/redis 编译安装/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/08/11/JVM内存模型/" title="JVM内存模型">http://yoursite.com/2016/08/11/JVM内存模型/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/11/JVM内存模型/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -328,15 +349,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/02/PostgreSQL升级/">
-                    PostgreSQL升级
+                <a href="/2016/08/12/JVM类加载机制/">
+                    JVM类加载机制
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/">
-                    Ubuntu下编译安装 hybla 模块
+                <a href="/2016/08/10/iterm2快捷键/">
+                    iterm2快捷键
                 </a>
             </div>
         
@@ -347,7 +368,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装前准备工作"><span class="toc-number">1.</span> <span class="toc-text">安装前准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正式安装"><span class="toc-number">2.</span> <span class="toc-text">正式安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动服务"><span class="toc-number">3.</span> <span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置密码"><span class="toc-number">4.</span> <span class="toc-text">设置密码</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#pc-寄存器-The-pc-Register"><span class="toc-number">1.</span> <span class="toc-text">pc 寄存器(The pc Register)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚拟机栈-Java-Virtual-Machine-Stacks"><span class="toc-number">2.</span> <span class="toc-text">虚拟机栈(Java Virtual Machine Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆-Heap"><span class="toc-number">3.</span> <span class="toc-text">堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-Method-Area"><span class="toc-number">4.</span> <span class="toc-text">方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时常量池-Run-Time-Constant-Pool"><span class="toc-number">5.</span> <span class="toc-text">运行时常量池(Run-Time Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地方法栈-Native-Method-Stacks"><span class="toc-number">6.</span> <span class="toc-text">本地方法栈(Native Method Stacks)</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn,
@@ -378,7 +399,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Redis 编译安装　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"JVM内存模型　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -398,7 +419,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/02/PostgreSQL升级/" title="上一篇: PostgreSQL升级">
+            <a href="/2016/08/12/JVM类加载机制/" title="上一篇: JVM类加载机制">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -406,7 +427,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/" title="下一篇: Ubuntu下编译安装 hybla 模块">
+            <a href="/2016/08/10/iterm2快捷键/" title="下一篇: iterm2快捷键">
                 <i class="fa fa-angle-right"></i>
             </a>
         

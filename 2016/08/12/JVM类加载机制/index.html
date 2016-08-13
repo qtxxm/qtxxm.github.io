@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="虾米" />
+
+
+
+<meta name="description" content="什么是类加载器 类加载器(ClassLoader)  是一个用来加载 class 的对象。给定一个 class 二进制名称，类加载器需要定位或者生成能够描述这个 class 的结构信息（方法、常量池等等）。
+体系结构
+
+java.lang.ClassLoader 介绍 java.lang.ClassLoader  是一个抽象类，里面定义了以下几个核心方法
+
+
+
+ClassLoader
+说明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM类加载机制">
+<meta property="og:url" content="http://yoursite.com/2016/08/12/JVM类加载机制/index.html">
+<meta property="og:site_name" content="虾米笔记">
+<meta property="og:description" content="什么是类加载器 类加载器(ClassLoader)  是一个用来加载 class 的对象。给定一个 class 二进制名称，类加载器需要定位或者生成能够描述这个 class 的结构信息（方法、常量池等等）。
+体系结构
+
+java.lang.ClassLoader 介绍 java.lang.ClassLoader  是一个抽象类，里面定义了以下几个核心方法
+
+
+
+ClassLoader
+说明">
+<meta property="og:image" content="http://7xlm7s.com1.z0.glb.clouddn.com/ClassLoader%E4%BD%93%E7%B3%BB.png?imageView2/2/w/500/h/300&v=20160812">
+<meta property="og:updated_time" content="2016-08-13T03:52:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM类加载机制">
+<meta name="twitter:description" content="什么是类加载器 类加载器(ClassLoader)  是一个用来加载 class 的对象。给定一个 class 二进制名称，类加载器需要定位或者生成能够描述这个 class 的结构信息（方法、常量池等等）。
+体系结构
+
+java.lang.ClassLoader 介绍 java.lang.ClassLoader  是一个抽象类，里面定义了以下几个核心方法
+
+
+
+ClassLoader
+说明">
+<meta name="twitter:image" content="http://7xlm7s.com1.z0.glb.clouddn.com/ClassLoader%E4%BD%93%E7%B3%BB.png?imageView2/2/w/500/h/300&v=20160812">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="虾米笔记" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JVM类加载机制 | 虾米笔记</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">虾米</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iterm2/">iterm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">虾米</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">虾米</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JVM类加载机制" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/12/JVM类加载机制/" class="article-date">
+      <time datetime="2016-08-12T08:04:34.000Z" itemprop="datePublished">2016-08-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JVM类加载机制
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="什么是类加载器"><a href="#什么是类加载器" class="headerlink" title="什么是类加载器"></a>什么是类加载器</h3><p><strong> 类加载器(ClassLoader) </strong> 是一个用来加载 class 的对象。给定一个 class 二进制名称，类加载器需要定位或者生成能够描述这个 class 的结构信息（方法、常量池等等）。</p>
+<h3 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h3><div align="center"><br><img src="http://7xlm7s.com1.z0.glb.clouddn.com/ClassLoader%E4%BD%93%E7%B3%BB.png?imageView2/2/w/500/h/300&amp;v=20160812" alt="JVM内存区域划分"><br></div>
+
+<h3 id="java-lang-ClassLoader-介绍"><a href="#java-lang-ClassLoader-介绍" class="headerlink" title="java.lang.ClassLoader 介绍"></a>java.lang.ClassLoader 介绍</h3><p><strong> java.lang.ClassLoader </strong> 是一个抽象类，里面定义了以下几个核心方法</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ClassLoader</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">public final ClassLoader getParent()</td>
+<td style="text-align:left">返回父级 ClassLoader 对象</td>
+</tr>
+<tr>
+<td style="text-align:left">public Class&lt;?&gt; loadClass(String name)</td>
+<td style="text-align:left">加载名称为 name 的类</td>
+</tr>
+<tr>
+<td style="text-align:left">protected Class&lt;?&gt; findClass(String name)</td>
+<td style="text-align:left">查找名称为 name 的类</td>
+</tr>
+<tr>
+<td style="text-align:left">protected final Class&lt;?&gt; findLoadedClass(String name)</td>
+<td style="text-align:left">查找已经当前被加载器加载过的类</td>
+</tr>
+<tr>
+<td style="text-align:left">protected final Class&lt;?&gt; defineClass(String name, byte[] b,<br>int off, int len, ProtectionDomain protectionDomain)</td>
+<td style="text-align:left">findClass 找到指定的类后，通过调用 defineClass 方法将byte字节流解析成JVM能够识别的Class对象</td>
+</tr>
+<tr>
+<td style="text-align:left">protected final void resolveClass(Class&lt;?&gt; c)</td>
+<td style="text-align:left">链接指定的类</td>
+</tr>
+</tbody>
+</table>
+<p>通过 findClass 和 defineClass 方法，我们不仅可以通过 Class 文件获取实例化对象，还可以通过各种其他渠道获取(HTTP、FTP、RPC 等等)</p>
+<h3 id="Java-中默认的类加载器层级关系"><a href="#Java-中默认的类加载器层级关系" class="headerlink" title="Java 中默认的类加载器层级关系"></a>Java 中默认的类加载器层级关系</h3><h4 id="Java-内置三个类加载器"><a href="#Java-内置三个类加载器" class="headerlink" title="Java 内置三个类加载器"></a>Java 内置三个类加载器</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">ClassLoader</th>
+<th style="text-align:left">上级加载器</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Bootstrap</td>
+<td style="text-align:left">null</td>
+<td style="text-align:left">C实现，加载${JRE_HOME}/lib/rt.jar</td>
+</tr>
+<tr>
+<td style="text-align:left">ExtClassLoader</td>
+<td style="text-align:left">Bootstrap</td>
+<td style="text-align:left">加载${JRE_HOME}/lib/ext或者java.ext.dirs指向的目录</td>
+</tr>
+<tr>
+<td style="text-align:left">AppClassLoader</td>
+<td style="text-align:left">ExtClassLoader</td>
+<td style="text-align:left">加载由-classpath或-cp选项定义，或者是JAR中的Manifest的classpath属性定义指向的目录</td>
+</tr>
+</tbody>
+</table>
+<p>运行如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getClassLoaderHierarchy</span><span class="params">()</span> </span>&#123;</div><div class="line">    System.out.println(ClassLoader.getSystemClassLoader());</div><div class="line">    System.out.println(ClassLoader.getSystemClassLoader().getParent());</div><div class="line">    System.out.println(ClassLoader.getSystemClassLoader().getParent().getParent());</div><div class="line"></div><div class="line">    <span class="comment">// 输出结果</span></div><div class="line">    <span class="comment">// sun.misc.Launcher$AppClassLoader@14ae5a5</span></div><div class="line">    <span class="comment">// sun.misc.Launcher$ExtClassLoader@77a567e1</span></div><div class="line">    <span class="comment">// null</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>证明 AppClassLoader =&gt; ExtClassLoader, 因为 Bootstrap ClassLoader 是用原生代码(C)实现的，并不继承 <strong> java.lang.ClassLoader </strong>，所以 这里输出为 null</p>
+<h3 id="委托机制"><a href="#委托机制" class="headerlink" title="委托机制"></a>委托机制</h3><p>看下 <strong> java.lang.ClassLoader#loadClass </strong> 的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)</div><div class="line">        <span class="keyword">throws</span> ClassNotFoundException</div><div class="line">&#123;</div><div class="line">    <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</div><div class="line">        <span class="comment">// 首先判断类是否被加载</span></div><div class="line">        Class&lt;?&gt; c = findLoadedClass(name);</div><div class="line">        <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">long</span> t0 = System.nanoTime();</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123; <span class="comment">// 父类加载器不为空，委托父类加载器进行加载</span></div><div class="line">                    c = parent.loadClass(name, <span class="keyword">false</span>);</div><div class="line">                &#125; <span class="keyword">else</span> &#123; <span class="comment">// 不存在父类加载器(根据内置定义好的加载器调用关系，ExtClassLoader 不存在父类加载器)，直接调用 Bootstrap ClassLoader 进行加载</span></div><div class="line">                    c = findBootstrapClassOrNull(name);</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">                <span class="comment">// ClassNotFoundException thrown if class not found</span></div><div class="line">                <span class="comment">// from the non-null parent class loader</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="comment">// 如果仍然找不到，调用自己的 findClass 方法加载</span></div><div class="line">                <span class="keyword">long</span> t1 = System.nanoTime();</div><div class="line">                c = findClass(name);</div><div class="line"></div><div class="line">                <span class="comment">// this is the defining class loader; record the stats</span></div><div class="line">                sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</div><div class="line">                sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</div><div class="line">                sun.misc.PerfCounter.getFindClasses().increment();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (resolve) &#123;</div><div class="line">            resolveClass(c);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> c;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看出，类加载器在接到加载类的请求时，首先将加载任务委托给父类加载器，依次递归，如果父类加载器可以完成类加载任务，就成功返回；只有父类加载器无法完成此加载任务时，才自己去加载。<em>(当然，这是系统默认的实现机制，我们也可以实现自己的类加载器重写这个方法，tomcat 的应用隔离就使用了这种方式)</em></p>
+<h4 id="委托机制的意义"><a href="#委托机制的意义" class="headerlink" title="委托机制的意义"></a>委托机制的意义</h4><ol>
+<li>可以避免重复加载，当父类已经加载了该类的时候就没有必要子ClassLoader再加载一次；</li>
+<li>考虑到安全因素，如果不使用这种委托模式，那么可以随时使用自定义的Class来动态代替Java核心API中定义的类型，这样做会存在非常大的安全隐患，而父类委托模式就可以避免这种情况，因为服加载器已经在启动时被加载</li>
+</ol>
+<h3 id="可见性机制"><a href="#可见性机制" class="headerlink" title="可见性机制"></a>可见性机制</h3><p>子类加载器可以看到父类加载器加载的类，而反之则不行。所以下面的例子中，当 ClassLoaderTest.class 已经被 AppClassLoader 类加载器加载过了，然后如果想要使用 ExtClassLoader 类加载器加载这个类，将会抛出 java.lang.ClassNotFoundException 异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> net.sephy.test;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();</div><div class="line">            <span class="comment">// printing ClassLoader of this class</span></div><div class="line">            System.out.println(<span class="string">"ClassLoaderTest.getClass().getClassLoader(): "</span> + classLoader);</div><div class="line">            <span class="comment">// 调用其他类加载器强行加载这个类</span></div><div class="line">            Class.forName(<span class="string">"test.ClassLoaderTest"</span>, <span class="keyword">true</span>, classLoader.getParent());</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</div><div class="line">            ex.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 输出</span></div><div class="line"><span class="comment">// ClassLoaderTest.getClass().getClassLoader(): sun.misc.Launcher$AppClassLoader@14ae5a5</span></div><div class="line"><span class="comment">// java.lang.ClassNotFoundException: net.sephy.test.ClassLoaderTest</span></div><div class="line"><span class="comment">//	   at java.net.URLClassLoader$1.run(URLClassLoader.java:372)</span></div><div class="line"><span class="comment">//	   at java.net.URLClassLoader$1.run(URLClassLoader.java:361)</span></div><div class="line"><span class="comment">//	   at java.security.AccessController.doPrivileged(Native Method)</span></div><div class="line"><span class="comment">//	   at java.net.URLClassLoader.findClass(URLClassLoader.java:360)</span></div><div class="line"><span class="comment">//	   at java.lang.ClassLoader.loadClass(ClassLoader.java:424)</span></div><div class="line"><span class="comment">//	   at java.lang.ClassLoader.loadClass(ClassLoader.java:357)</span></div><div class="line"><span class="comment">//	   at java.lang.Class.forName0(Native Method)</span></div><div class="line"><span class="comment">//	   at java.lang.Class.forName(Class.java:344)</span></div><div class="line"><span class="comment">//	   at net.sephy.test.ClassLoaderTest.test(ClassLoaderTest.java:31)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span></div><div class="line"><span class="comment">//	   at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span></div><div class="line"><span class="comment">//	   at java.lang.reflect.Method.invoke(Method.java:483)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)</span></div><div class="line"><span class="comment">//	   at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)</span></div><div class="line"><span class="comment">//	   at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.run(ParentRunner.java:363)</span></div><div class="line"><span class="comment">//	   at org.junit.runner.JUnitCore.run(JUnitCore.java:137)</span></div><div class="line"><span class="comment">//	   at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:117)</span></div><div class="line"><span class="comment">//	   at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:42)</span></div><div class="line"><span class="comment">//	   at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:253)</span></div><div class="line"><span class="comment">//	   at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:84)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span></div><div class="line"><span class="comment">//	   at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span></div><div class="line"><span class="comment">//	   at java.lang.reflect.Method.invoke(Method.java:483)</span></div><div class="line"><span class="comment">//	   at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)</span></div></pre></td></tr></table></figure>
+<h3 id="单一性机制"><a href="#单一性机制" class="headerlink" title="单一性机制"></a>单一性机制</h3><p>父加载器加载过的类不能被子加载器加载第二次(当然，我们可以实现自己的类加载器打破这种约束，<strong> 并不推荐 </strong>)。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/08/12/JVM类加载机制/">JVM类加载机制</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">虾米</a></p>
+        <p><span>发布时间:</span>2016-08-12, 16:04:34</p>
+        <p><span>最后更新:</span>2016-08-13, 11:52:14</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/08/12/JVM类加载机制/" title="JVM类加载机制">http://yoursite.com/2016/08/12/JVM类加载机制/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/12/JVM类加载机制/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/08/11/JVM内存模型/">
+                    JVM内存模型
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是类加载器"><span class="toc-number">1.</span> <span class="toc-text">什么是类加载器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#体系结构"><span class="toc-number">2.</span> <span class="toc-text">体系结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java-lang-ClassLoader-介绍"><span class="toc-number">3.</span> <span class="toc-text">java.lang.ClassLoader 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-中默认的类加载器层级关系"><span class="toc-number">4.</span> <span class="toc-text">Java 中默认的类加载器层级关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-内置三个类加载器"><span class="toc-number">4.1.</span> <span class="toc-text">Java 内置三个类加载器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#委托机制"><span class="toc-number">5.</span> <span class="toc-text">委托机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#委托机制的意义"><span class="toc-number">5.1.</span> <span class="toc-text">委托机制的意义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可见性机制"><span class="toc-number">6.</span> <span class="toc-text">可见性机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单一性机制"><span class="toc-number">7.</span> <span class="toc-text">单一性机制</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JVM类加载机制　| 虾米笔记　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/08/11/JVM内存模型/" title="下一篇: JVM内存模型">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/12/JVM类加载机制/">JVM类加载机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/11/JVM内存模型/">JVM内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/iterm2快捷键/">iterm2快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/Logstash读取log4j2日志文件/">Logstash读取log4j2日志文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/25/Nginx路径匹配规则/">Nginx路径匹配规则</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/25/Nginx变量/">Nginx变量</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/Java关键字synchronized/">Java关键字synchronized</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/Java关键字volatile/">Java关键字volatile</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/04/maven打包时修改配置文件/">maven打包时修改配置文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/PostgreSQL升级/">PostgreSQL升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/redis 编译安装/">Redis 编译安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/01/Ubuntu下编译安装 hybla 模块/">Ubuntu下编译安装 hybla 模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/09/Spring常用接口(一)/">Spring 常用接口(一)</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 虾米
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

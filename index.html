@@ -183,7 +183,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iterm2/">iterm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
                     </div>
                 </section>
                 
@@ -259,6 +259,389 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-JVM类加载机制" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/12/JVM类加载机制/" class="article-date">
+      <time datetime="2016-08-12T08:04:34.000Z" itemprop="datePublished">2016-08-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/12/JVM类加载机制/">JVM类加载机制</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="什么是类加载器"><a href="#什么是类加载器" class="headerlink" title="什么是类加载器"></a>什么是类加载器</h3><p><strong> 类加载器(ClassLoader) </strong> 是一个用来加载 class 的对象。给定一个 class 二进制名称，类加载器需要定位或者生成能够描述这个 class 的结构信息（方法、常量池等等）。</p>
+<h3 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h3><div align="center"><br><img src="http://7xlm7s.com1.z0.glb.clouddn.com/ClassLoader%E4%BD%93%E7%B3%BB.png?imageView2/2/w/500/h/300&amp;v=20160812" alt="JVM内存区域划分"><br></div>
+
+<h3 id="java-lang-ClassLoader-介绍"><a href="#java-lang-ClassLoader-介绍" class="headerlink" title="java.lang.ClassLoader 介绍"></a>java.lang.ClassLoader 介绍</h3><p><strong> java.lang.ClassLoader </strong> 是一个抽象类，里面定义了以下几个核心方法</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ClassLoader</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">public final ClassLoader getParent()</td>
+<td style="text-align:left">返回父级 ClassLoader 对象</td>
+</tr>
+<tr>
+<td style="text-align:left">public Class&lt;?&gt; loadClass(String name)</td>
+<td style="text-align:left">加载名称为 name 的类</td>
+</tr>
+<tr>
+<td style="text-align:left">protected Class&lt;?&gt; findClass(String name)</td>
+<td style="text-align:left">查找名称为 name 的类</td>
+</tr>
+<tr>
+<td style="text-align:left">protected final Class&lt;?&gt; findLoadedClass(String name)</td>
+<td style="text-align:left">查找已经当前被加载器加载过的类</td>
+</tr>
+<tr>
+<td style="text-align:left">protected final Class&lt;?&gt; defineClass(String name, byte[] b,<br>int off, int len, ProtectionDomain protectionDomain)</td>
+<td style="text-align:left">findClass 找到指定的类后，通过调用 defineClass 方法将byte字节流解析成JVM能够识别的Class对象</td>
+</tr>
+<tr>
+<td style="text-align:left">protected final void resolveClass(Class&lt;?&gt; c)</td>
+<td style="text-align:left">链接指定的类</td>
+</tr>
+</tbody>
+</table>
+<p>通过 findClass 和 defineClass 方法，我们不仅可以通过 Class 文件获取实例化对象，还可以通过各种其他渠道获取(HTTP、FTP、RPC 等等)</p>
+<h3 id="Java-中默认的类加载器层级关系"><a href="#Java-中默认的类加载器层级关系" class="headerlink" title="Java 中默认的类加载器层级关系"></a>Java 中默认的类加载器层级关系</h3><h4 id="Java-内置三个类加载器"><a href="#Java-内置三个类加载器" class="headerlink" title="Java 内置三个类加载器"></a>Java 内置三个类加载器</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">ClassLoader</th>
+<th style="text-align:left">上级加载器</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Bootstrap</td>
+<td style="text-align:left">null</td>
+<td style="text-align:left">C实现，加载${JRE_HOME}/lib/rt.jar</td>
+</tr>
+<tr>
+<td style="text-align:left">ExtClassLoader</td>
+<td style="text-align:left">Bootstrap</td>
+<td style="text-align:left">加载${JRE_HOME}/lib/ext或者java.ext.dirs指向的目录</td>
+</tr>
+<tr>
+<td style="text-align:left">AppClassLoader</td>
+<td style="text-align:left">ExtClassLoader</td>
+<td style="text-align:left">加载由-classpath或-cp选项定义，或者是JAR中的Manifest的classpath属性定义指向的目录</td>
+</tr>
+</tbody>
+</table>
+<p>运行如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getClassLoaderHierarchy</span><span class="params">()</span> </span>&#123;</div><div class="line">    System.out.println(ClassLoader.getSystemClassLoader());</div><div class="line">    System.out.println(ClassLoader.getSystemClassLoader().getParent());</div><div class="line">    System.out.println(ClassLoader.getSystemClassLoader().getParent().getParent());</div><div class="line"></div><div class="line">    <span class="comment">// 输出结果</span></div><div class="line">    <span class="comment">// sun.misc.Launcher$AppClassLoader@14ae5a5</span></div><div class="line">    <span class="comment">// sun.misc.Launcher$ExtClassLoader@77a567e1</span></div><div class="line">    <span class="comment">// null</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>证明 AppClassLoader =&gt; ExtClassLoader, 因为 Bootstrap ClassLoader 是用原生代码(C)实现的，并不继承 <strong> java.lang.ClassLoader </strong>，所以 这里输出为 null</p>
+<h3 id="委托机制"><a href="#委托机制" class="headerlink" title="委托机制"></a>委托机制</h3><p>看下 <strong> java.lang.ClassLoader#loadClass </strong> 的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)</div><div class="line">        <span class="keyword">throws</span> ClassNotFoundException</div><div class="line">&#123;</div><div class="line">    <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</div><div class="line">        <span class="comment">// 首先判断类是否被加载</span></div><div class="line">        Class&lt;?&gt; c = findLoadedClass(name);</div><div class="line">        <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">long</span> t0 = System.nanoTime();</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123; <span class="comment">// 父类加载器不为空，委托父类加载器进行加载</span></div><div class="line">                    c = parent.loadClass(name, <span class="keyword">false</span>);</div><div class="line">                &#125; <span class="keyword">else</span> &#123; <span class="comment">// 不存在父类加载器(根据内置定义好的加载器调用关系，ExtClassLoader 不存在父类加载器)，直接调用 Bootstrap ClassLoader 进行加载</span></div><div class="line">                    c = findBootstrapClassOrNull(name);</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">                <span class="comment">// ClassNotFoundException thrown if class not found</span></div><div class="line">                <span class="comment">// from the non-null parent class loader</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="comment">// 如果仍然找不到，调用自己的 findClass 方法加载</span></div><div class="line">                <span class="keyword">long</span> t1 = System.nanoTime();</div><div class="line">                c = findClass(name);</div><div class="line"></div><div class="line">                <span class="comment">// this is the defining class loader; record the stats</span></div><div class="line">                sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</div><div class="line">                sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</div><div class="line">                sun.misc.PerfCounter.getFindClasses().increment();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (resolve) &#123;</div><div class="line">            resolveClass(c);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> c;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看出，类加载器在接到加载类的请求时，首先将加载任务委托给父类加载器，依次递归，如果父类加载器可以完成类加载任务，就成功返回；只有父类加载器无法完成此加载任务时，才自己去加载。<em>(当然，这是系统默认的实现机制，我们也可以实现自己的类加载器重写这个方法，tomcat 的应用隔离就使用了这种方式)</em></p>
+<h4 id="委托机制的意义"><a href="#委托机制的意义" class="headerlink" title="委托机制的意义"></a>委托机制的意义</h4><ol>
+<li>可以避免重复加载，当父类已经加载了该类的时候就没有必要子ClassLoader再加载一次；</li>
+<li>考虑到安全因素，如果不使用这种委托模式，那么可以随时使用自定义的Class来动态代替Java核心API中定义的类型，这样做会存在非常大的安全隐患，而父类委托模式就可以避免这种情况，因为服加载器已经在启动时被加载</li>
+</ol>
+<h3 id="可见性机制"><a href="#可见性机制" class="headerlink" title="可见性机制"></a>可见性机制</h3><p>子类加载器可以看到父类加载器加载的类，而反之则不行。所以下面的例子中，当 ClassLoaderTest.class 已经被 AppClassLoader 类加载器加载过了，然后如果想要使用 ExtClassLoader 类加载器加载这个类，将会抛出 java.lang.ClassNotFoundException 异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> net.sephy.test;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();</div><div class="line">            <span class="comment">// printing ClassLoader of this class</span></div><div class="line">            System.out.println(<span class="string">"ClassLoaderTest.getClass().getClassLoader(): "</span> + classLoader);</div><div class="line">            <span class="comment">// 调用其他类加载器强行加载这个类</span></div><div class="line">            Class.forName(<span class="string">"test.ClassLoaderTest"</span>, <span class="keyword">true</span>, classLoader.getParent());</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</div><div class="line">            ex.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 输出</span></div><div class="line"><span class="comment">// ClassLoaderTest.getClass().getClassLoader(): sun.misc.Launcher$AppClassLoader@14ae5a5</span></div><div class="line"><span class="comment">// java.lang.ClassNotFoundException: net.sephy.test.ClassLoaderTest</span></div><div class="line"><span class="comment">//	   at java.net.URLClassLoader$1.run(URLClassLoader.java:372)</span></div><div class="line"><span class="comment">//	   at java.net.URLClassLoader$1.run(URLClassLoader.java:361)</span></div><div class="line"><span class="comment">//	   at java.security.AccessController.doPrivileged(Native Method)</span></div><div class="line"><span class="comment">//	   at java.net.URLClassLoader.findClass(URLClassLoader.java:360)</span></div><div class="line"><span class="comment">//	   at java.lang.ClassLoader.loadClass(ClassLoader.java:424)</span></div><div class="line"><span class="comment">//	   at java.lang.ClassLoader.loadClass(ClassLoader.java:357)</span></div><div class="line"><span class="comment">//	   at java.lang.Class.forName0(Native Method)</span></div><div class="line"><span class="comment">//	   at java.lang.Class.forName(Class.java:344)</span></div><div class="line"><span class="comment">//	   at net.sephy.test.ClassLoaderTest.test(ClassLoaderTest.java:31)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span></div><div class="line"><span class="comment">//	   at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span></div><div class="line"><span class="comment">//	   at java.lang.reflect.Method.invoke(Method.java:483)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)</span></div><div class="line"><span class="comment">//	   at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)</span></div><div class="line"><span class="comment">//	   at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)</span></div><div class="line"><span class="comment">//	   at org.junit.runners.ParentRunner.run(ParentRunner.java:363)</span></div><div class="line"><span class="comment">//	   at org.junit.runner.JUnitCore.run(JUnitCore.java:137)</span></div><div class="line"><span class="comment">//	   at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:117)</span></div><div class="line"><span class="comment">//	   at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:42)</span></div><div class="line"><span class="comment">//	   at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:253)</span></div><div class="line"><span class="comment">//	   at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:84)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span></div><div class="line"><span class="comment">//	   at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span></div><div class="line"><span class="comment">//	   at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span></div><div class="line"><span class="comment">//	   at java.lang.reflect.Method.invoke(Method.java:483)</span></div><div class="line"><span class="comment">//	   at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)</span></div></pre></td></tr></table></figure>
+<h3 id="单一性机制"><a href="#单一性机制" class="headerlink" title="单一性机制"></a>单一性机制</h3><p>父加载器加载过的类不能被子加载器加载第二次(当然，我们可以实现自己的类加载器打破这种约束，<strong> 并不推荐 </strong>)。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-JVM内存模型" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/11/JVM内存模型/" class="article-date">
+      <time datetime="2016-08-11T08:43:43.000Z" itemprop="datePublished">2016-08-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/11/JVM内存模型/">JVM内存模型</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>看了下 <strong>Java8</strong> 的 (JVM规范)[<a href="https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf]，JVM" target="_blank" rel="external">https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf]，JVM</a> 运行时数据区(Run-Time Data Areas)是在JVM运行的时候操作系统所分配的内存区，具体可以分为: pc 寄存器(The pc Register)，Java 虚拟机栈(Java Virtual Machine Stacks)，Java 堆(Heap)，方法区(Method Area)，运行时常量池(Run-Time Constant Pool)，本地方法栈(Native Method Stacks)。</p>
+<p>画了张图，大致如下(可能不是十分准确)：</p>
+<div align="center"><br><img src="http://7xlm7s.com1.z0.glb.clouddn.com/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png?imageView2/2/w/1000/h/500&amp;v=20160812" alt="JVM内存区域划分"><br></div>
+
+<h4 id="pc-寄存器-The-pc-Register"><a href="#pc-寄存器-The-pc-Register" class="headerlink" title="pc 寄存器(The pc Register)"></a>pc 寄存器(The pc Register)</h4><p>JVM 支持多个线程(Thread)同时运行，每个线程都有自己的pc寄存器(程序计数器)。在任意时刻，一个 Java 虚拟机线程只会执行一个方法的 代码，这个正在被线程执行的方法称为该线程的当前方法。倘若当前执行的是 JVM 的方法，则该寄存器中保存当前执行指令的地址；倘若执行的是 native 方法，则PC寄存器中为 undefined。</p>
+<h4 id="虚拟机栈-Java-Virtual-Machine-Stacks"><a href="#虚拟机栈-Java-Virtual-Machine-Stacks" class="headerlink" title="虚拟机栈(Java Virtual Machine Stacks)"></a>虚拟机栈(Java Virtual Machine Stacks)</h4><p>每个线程有一个私有的栈(JVM Stack)，随着线程的创建而创建。栈里面存着的是一种叫”栈帧”的东西，每个方法会创建一个栈帧(Frame)，栈帧中存放了局部变量表(基本数据类型和对象引用)、操作数栈、方法出口等信息。因为除了栈帧的出栈和入栈之外，Java 虚拟机栈不会 再受其他因素的影响，所以栈帧可以在堆中分配，Java 虚拟机栈所使用的内存不需要保证<br>是连续的。栈的大小可以固定也可以动态扩展。</p>
+<blockquote>
+<p>如果线程请求分配的栈容量超过 Java 虚拟机栈允许的最大容量,Java 虚拟机将会抛<br>出一个 <strong> StackOver owError </strong> 异常，可以通过 <strong> -Xss </strong> 来设置每个线程栈的大小。<br>如果 Java 虚拟机栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，<br>或者在创建新的线程时没有足够的内存去创建对应的虚拟机栈，那 Java 虚拟机将会 抛出一个 <strong> OutOfMemoryError </strong> 异常。</p>
+</blockquote>
+<h4 id="堆-Heap"><a href="#堆-Heap" class="headerlink" title="堆(Heap)"></a>堆(Heap)</h4><p>堆内存是 JVM 所有线程共享的部分，在虚拟机启动的时候就已经创建。所有的对象和数组都在堆上进行分配。这部分空间可通过 <strong>GC</strong> 进行回收。当申请不到空间时会抛出 <strong> OutOfMemoryError </strong>。<br>Java 堆的容量可以是固定的,也可以随着程序执行的需求动态扩展,并在不需要过<br>多空间时自动收缩。Java 堆所使用的内存不需要保证是连续的。</p>
+<blockquote>
+<p>如果实际所需的堆超过了自动内存管理系统能提供的最大容量,那 Java 虚拟机将会<br>抛出一个 <strong> OutOfMemoryError </strong> 异常。</p>
+</blockquote>
+<h4 id="方法区-Method-Area"><a href="#方法区-Method-Area" class="headerlink" title="方法区(Method Area)"></a>方法区(Method Area)</h4><p>方法区也是所有线程共享。主要用于存储类的结构信息，例如：常量池(runtime constant pool)、字段和方法数据、构造函数和普通方法的字节码内容，还包括一些 在类、实例、接口初始化时用到的特殊方法。方法区在虚拟机启动的时候创建，逻辑上属于堆的一部分，但是为了与堆进行区分，通常又叫“非堆”。</p>
+<blockquote>
+<p>如果方法区的内存空间不能满足内存分配请求,那么 Java 虚拟机将抛出一个<br><strong> OutOfMemoryError </strong> 异常。</p>
+</blockquote>
+<h4 id="运行时常量池-Run-Time-Constant-Pool"><a href="#运行时常量池-Run-Time-Constant-Pool" class="headerlink" title="运行时常量池(Run-Time Constant Pool)"></a>运行时常量池(Run-Time Constant Pool)</h4><p>运行时常量池(runtime constant pool)是class文件中每一个类或接口的常量池表(constant_pool table)的运行时表示形式，它包括了若干种不同的常量，从编译期可知的数值字面量到必须在运行期解析后才能获得的方法或字段引用。运行时常量池类似于传<br>统语言中的符号表(symbol table)，不过它存储数据的范围比通常意义上的符号表要更为广泛。每一个运行时常量池都在 Java 虚拟机的方法区中分配，在加载类和接口<br>到虚拟机后，就创建对应的运行时常量池。 </p>
+<blockquote>
+<p>当创建类或接口时，如果构造运行时常量池所需要的内存空间超过了方法区所能提供<br>的最大值，那么 Java 虚拟机将会抛出一个 OutOfMemoryError 异常。</p>
+</blockquote>
+<h4 id="本地方法栈-Native-Method-Stacks"><a href="#本地方法栈-Native-Method-Stacks" class="headerlink" title="本地方法栈(Native Method Stacks)"></a>本地方法栈(Native Method Stacks)</h4><p>Java 虚拟机实现可能会使用到传统的栈(通常称为 C stack)来支持 native 方法(指使 用 Java 以外的其他语言编写的方法)的执行，这个栈就是本地方法栈(native method stack)。</p>
+<blockquote>
+<p>如果本地方法栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者<br>在创建新的线程时没有足够的内存去创建对应的本地方法栈，那么 Java 虚拟机将会 抛出一个 <strong> OutOfMemoryError </strong> 异常。<br>如果线程请求分配的栈容量超过本地方法栈允许的最大容量，Java 虚拟机将会抛出一个 <strong> StackOverowError </strong> 异常。 </p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iterm2快捷键" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/10/iterm2快捷键/" class="article-date">
+      <time datetime="2016-08-10T07:03:05.000Z" itemprop="datePublished">2016-08-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/10/iterm2快捷键/">iterm2快捷键</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <table>
+<thead>
+<tr>
+<th style="text-align:left">快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">⌘ + t</td>
+<td>新建标签</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + w</td>
+<td>关闭标签</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + 1-9</td>
+<td>切换标签</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + →,←</td>
+<td>切换标签</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + w</td>
+<td>关闭标签</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + d</td>
+<td>垂直分屏</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + ⇧ + d</td>
+<td>水平分屏</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + ;</td>
+<td>查看历史命令</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + ⇧ + h</td>
+<td>查看剪贴板历史</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + f</td>
+<td>查找</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + u</td>
+<td>清除当前行</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + a</td>
+<td>到行首</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + e</td>
+<td>到行尾</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + f</td>
+<td>前进</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + b</td>
+<td>后退</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + p</td>
+<td>上一条命令</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + r</td>
+<td>搜索命令历史</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + d</td>
+<td>删除当前光标的字符</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + h</td>
+<td>删除光标之前的字符</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + w</td>
+<td>删除光标之前的单词</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + k</td>
+<td>删除到文本末尾</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + t</td>
+<td>交换光标处文本</td>
+</tr>
+<tr>
+<td style="text-align:left">⌘ + r</td>
+<td>清屏1</td>
+</tr>
+<tr>
+<td style="text-align:left">⌃ + l</td>
+<td>清屏2</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⌘(command)<br>⌃(ctrl)<br>⇧(shift)</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OSX/">OSX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iterm2/">iterm2</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Logstash读取log4j2日志文件" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -745,194 +1128,10 @@ database.jdbc.password=${db.password}
 
 
   
-    <article id="post-redis 编译安装" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2016/07/02/redis 编译安装/" class="article-date">
-      <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">2016-07-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/02/redis 编译安装/">Redis 编译安装</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h4 id="安装前准备工作"><a href="#安装前准备工作" class="headerlink" title="安装前准备工作"></a>安装前准备工作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#Install gcc &amp; tcl, needed for compilation</div><div class="line">yum install -y gcc*</div><div class="line">yum install -y tcl</div></pre></td></tr></table></figure>
-<h4 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tar xzf redis-3.0.1.tar.gz</div><div class="line">cd redis-3.0.1</div><div class="line">make</div><div class="line">make test</div><div class="line">make install</div><div class="line">cd utils</div><div class="line">chmod +x install_server.sh</div><div class="line">./install_server.sh</div><div class="line">####</div></pre></td></tr></table></figure>
-<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service redis_6379 status</div><div class="line">service redis_6379 start</div></pre></td></tr></table></figure>
-<h4 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/redis/6379.conf</div><div class="line"># find # requirepass foobared </div><div class="line">#replace it with your password</div><div class="line">requirepass somePassword</div><div class="line">service redis_6379 restart</div></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="java-Ubuntu下编译安装 hybla 模块" class="article article-type-java" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/" class="article-date">
-      <time datetime="2016-07-01T05:13:20.000Z" itemprop="datePublished">2016-07-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/01/Ubuntu下编译安装 hybla 模块/">Ubuntu下编译安装 hybla 模块</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="Ubuntu下编译安装-hybla-模块"><a href="#Ubuntu下编译安装-hybla-模块" class="headerlink" title="Ubuntu下编译安装 hybla 模块"></a>Ubuntu下编译安装 hybla 模块</h1><p>####1.查看vps内核版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">uname -r</div><div class="line">3.19.1-x86_64-linode53</div></pre></td></tr></table></figure></p>
-<p>####2.下载相同版本的内核源代码<br><a href="https://www.kernel.org/pub/linux/kernel/v3.0/">https://www.kernel.org/pub/linux/kernel/v3.0/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/src</div><div class="line">wget https://www.kernel.org/pub/linux/kernel/v3.0/linux-3.19.1.tar.gz</div><div class="line">tar xvf linux-3.19.1.tar.gz</div></pre></td></tr></table></figure></p>
-<p>####3.安装内核编译所需要的工具包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get update</div><div class="line">apt-get install -y build-esstential libncurses5-dev libssl-dev</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Spring常用接口(一)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/09/Spring常用接口(一)/" class="article-date">
-      <time datetime="2015-04-09T15:06:51.000Z" itemprop="datePublished">2015-04-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/09/Spring常用接口(一)/">Spring 常用接口(一)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>spring 提供了一些非常好用的接口，下面介绍一些容器管理相关的常用接口</p>
-<p><em>org.springframework.beans.factory.InitializingBean</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InitializingBean</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在 spring 容器完成一个实例对象所有属性注入方法调用之后，如果该实例对象类型实现了 <em>InitializingBean</em> 接口，容器便会调用 afterPropertiesSet() 方法。通过实现 <em>InitializingBean</em>接口，我们可以更好的完成一些初始化工作。</p>
-<p><em>org.springframework.beans.factory.DisposableBean</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DisposableBean</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在 spring 容器关闭时，所有实现了<em>DisposableBean</em> 接口的实例都会调用 destroy() 方法。通过实现 <em>DisposableBean</em> 接口，我们可以更好的完成一些类似于资源释放的工作。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">

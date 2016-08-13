@@ -14,10 +14,13 @@
 <meta name="author" content="虾米" />
 
 
+    
+    
+
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="虾米笔记">
-<meta property="og:url" content="http://yoursite.com/archives/2016/07/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="虾米笔记">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虾米笔记">
@@ -48,11 +51,13 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
+    <style> .article { opacity: 0;} </style>
+
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Archives: 2016/7 | 虾米笔记</title>
+<title>虾米笔记</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -61,9 +66,9 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: false,
+        isHome: true,
         isPost: false,
-        isArchive: true,
+        isArchive: false,
         isTag: false,
         isCategory: false,
         open_in_new: false,
@@ -255,269 +260,199 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-redis 编译安装" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2016/07/02/redis 编译安装/" class="article-date">
+      <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">2016-07-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/02/redis 编译安装/">Redis 编译安装</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h4 id="安装前准备工作"><a href="#安装前准备工作" class="headerlink" title="安装前准备工作"></a>安装前准备工作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#Install gcc &amp; tcl, needed for compilation</div><div class="line">yum install -y gcc*</div><div class="line">yum install -y tcl</div></pre></td></tr></table></figure>
+<h4 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tar xzf redis-3.0.1.tar.gz</div><div class="line">cd redis-3.0.1</div><div class="line">make</div><div class="line">make test</div><div class="line">make install</div><div class="line">cd utils</div><div class="line">chmod +x install_server.sh</div><div class="line">./install_server.sh</div><div class="line">####</div></pre></td></tr></table></figure>
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service redis_6379 status</div><div class="line">service redis_6379 start</div></pre></td></tr></table></figure>
+<h4 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/redis/6379.conf</div><div class="line"># find # requirepass foobared </div><div class="line">#replace it with your password</div><div class="line">requirepass somePassword</div><div class="line">service redis_6379 restart</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/25/Nginx路径匹配规则/" class="archive-article-date">
-      <time datetime="2016-07-25T09:13:00.000Z" itemprop="datePublished">07-25</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/25/Nginx路径匹配规则/">Nginx路径匹配规则</a>
-    </h1>
-  
 
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/25/Nginx变量/" class="archive-article-date">
-      <time datetime="2016-07-25T08:41:02.000Z" itemprop="datePublished">07-25</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/25/Nginx变量/">Nginx变量</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/21/Java关键字synchronized/" class="archive-article-date">
-      <time datetime="2016-07-21T09:36:13.000Z" itemprop="datePublished">07-21</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/21/Java关键字synchronized/">Java关键字synchronized</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/21/Java关键字volatile/" class="archive-article-date">
-      <time datetime="2016-07-21T08:32:36.000Z" itemprop="datePublished">07-21</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/21/Java关键字volatile/">Java关键字volatile</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile/">volatile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/04/maven打包时修改配置文件/" class="archive-article-date">
-      <time datetime="2016-07-04T07:43:45.000Z" itemprop="datePublished">07-04</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/04/maven打包时修改配置文件/">maven打包时修改配置文件</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/02/PostgreSQL升级/" class="archive-article-date">
-      <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">07-02</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/02/PostgreSQL升级/">PostgreSQL升级</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/02/redis 编译安装/" class="archive-article-date">
-      <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">07-02</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/02/redis 编译安装/">Redis 编译安装</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
+      
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
     </div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-java">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/" class="archive-article-date">
-      <time datetime="2016-07-01T05:13:20.000Z" itemprop="datePublished">07-01</time>
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="java-Ubuntu下编译安装 hybla 模块" class="article article-type-java" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/" class="article-date">
+      <time datetime="2016-07-01T05:13:20.000Z" itemprop="datePublished">2016-07-01</time>
 </a>
-        </div>
-         
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/01/Ubuntu下编译安装 hybla 模块/">Ubuntu下编译安装 hybla 模块</a>
+      <a class="article-title" href="/2016/07/01/Ubuntu下编译安装 hybla 模块/">Ubuntu下编译安装 hybla 模块</a>
     </h1>
   
 
-        <div class="article-info info-on-archive">
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
           
+              <h1 id="Ubuntu下编译安装-hybla-模块"><a href="#Ubuntu下编译安装-hybla-模块" class="headerlink" title="Ubuntu下编译安装 hybla 模块"></a>Ubuntu下编译安装 hybla 模块</h1><p>####1.查看vps内核版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">uname -r</div><div class="line">3.19.1-x86_64-linode53</div></pre></td></tr></table></figure></p>
+<p>####2.下载相同版本的内核源代码<br><a href="https://www.kernel.org/pub/linux/kernel/v3.0/">https://www.kernel.org/pub/linux/kernel/v3.0/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/src</div><div class="line">wget https://www.kernel.org/pub/linux/kernel/v3.0/linux-3.19.1.tar.gz</div><div class="line">tar xvf linux-3.19.1.tar.gz</div></pre></td></tr></table></figure></p>
+<p>####3.安装内核编译所需要的工具包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get update</div><div class="line">apt-get install -y build-esstential libncurses5-dev libssl-dev</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
 
-          
+      
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
     </div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      
+        <p class="article-more-link">
+          <a href="/2016/07/01/Ubuntu下编译安装 hybla 模块/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
     
+  </div>
+  
+</article>
 
+
+
+
+
+
+
+
+
+  
+    <article id="post-Spring常用接口(一)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/09/Spring常用接口(一)/" class="article-date">
+      <time datetime="2015-04-09T15:06:51.000Z" itemprop="datePublished">2015-04-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/09/Spring常用接口(一)/">Spring 常用接口(一)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>spring 提供了一些非常好用的接口，下面介绍一些容器管理相关的常用接口</p>
+<p><em>org.springframework.beans.factory.InitializingBean</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InitializingBean</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 spring 容器完成一个实例对象所有属性注入方法调用之后，如果该实例对象类型实现了 <em>InitializingBean</em> 接口，容器便会调用 afterPropertiesSet() 方法。通过实现 <em>InitializingBean</em>接口，我们可以更好的完成一些初始化工作。</p>
+<p><em>org.springframework.beans.factory.DisposableBean</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DisposableBean</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 spring 容器关闭时，所有实现了<em>DisposableBean</em> 接口的实例都会调用 destroy() 方法。通过实现 <em>DisposableBean</em> 接口，我们可以更好的完成一些类似于资源释放的工作。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 </div>
       <footer id="footer">
     <div class="outer">
