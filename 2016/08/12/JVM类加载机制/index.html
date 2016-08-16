@@ -38,7 +38,7 @@ java.lang.ClassLoader 介绍 java.lang.ClassLoader  是一个抽象类，里面�
 ClassLoader
 说明">
 <meta property="og:image" content="http://7xlm7s.com1.z0.glb.clouddn.com/ClassLoader%E4%BD%93%E7%B3%BB.png?imageView2/2/w/500/h/300&v=20160812">
-<meta property="og:updated_time" content="2016-08-13T03:52:14.000Z">
+<meta property="og:updated_time" content="2016-08-15T06:12:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM类加载机制">
 <meta name="twitter:description" content="什么是类加载器 类加载器(ClassLoader)  是一个用来加载 class 的对象。给定一个 class 二进制名称，类加载器需要定位或者生成能够描述这个 class 的结构信息（方法、常量池等等）。
@@ -208,7 +208,7 @@ ClassLoader
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iterm2/">iterm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iterm2/">iterm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程，volatile/">多线程，volatile</a></li></ul>
                     </div>
                 </section>
                 
@@ -370,17 +370,17 @@ ClassLoader
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Bootstrap</td>
+<td style="text-align:left">启动类加载器(Bootstrap ClassLoader)</td>
 <td style="text-align:left">null</td>
-<td style="text-align:left">C实现，加载${JRE_HOME}/lib/rt.jar</td>
+<td style="text-align:left">C实现，加载${JRE_HOME}/lib/rt.jar以及为-Xbootclasspath所指定的目录下的类库</td>
 </tr>
 <tr>
-<td style="text-align:left">ExtClassLoader</td>
+<td style="text-align:left">扩展类加载器(ExtClassLoader)</td>
 <td style="text-align:left">Bootstrap</td>
 <td style="text-align:left">加载${JRE_HOME}/lib/ext或者java.ext.dirs指向的目录</td>
 </tr>
 <tr>
-<td style="text-align:left">AppClassLoader</td>
+<td style="text-align:left">应用程序类加载器(AppClassLoader)</td>
 <td style="text-align:left">ExtClassLoader</td>
 <td style="text-align:left">加载由-classpath或-cp选项定义，或者是JAR中的Manifest的classpath属性定义指向的目录</td>
 </tr>
@@ -410,7 +410,7 @@ ClassLoader
         <p><span>本文标题:</span><a href="/2016/08/12/JVM类加载机制/">JVM类加载机制</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">虾米</a></p>
         <p><span>发布时间:</span>2016-08-12, 16:04:34</p>
-        <p><span>最后更新:</span>2016-08-13, 11:52:14</p>
+        <p><span>最后更新:</span>2016-08-15, 14:12:06</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/08/12/JVM类加载机制/" title="JVM类加载机制">http://yoursite.com/2016/08/12/JVM类加载机制/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/12/JVM类加载机制/　　作者: 虾米" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -481,6 +481,28 @@ ClassLoader
 
 
 
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://yoursite.com/2016/08/12/JVM类加载机制/';
+            this.page.identifier = '2016/08/12/JVM类加载机制/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//qtxxmgithubio.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
 
 
     

@@ -183,7 +183,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iterm2/">iterm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j2/">Log4j2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iterm2/">iterm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程，volatile/">多线程，volatile</a></li></ul>
                     </div>
                 </section>
                 
@@ -336,17 +336,17 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Bootstrap</td>
+<td style="text-align:left">启动类加载器(Bootstrap ClassLoader)</td>
 <td style="text-align:left">null</td>
-<td style="text-align:left">C实现，加载${JRE_HOME}/lib/rt.jar</td>
+<td style="text-align:left">C实现，加载${JRE_HOME}/lib/rt.jar以及为-Xbootclasspath所指定的目录下的类库</td>
 </tr>
 <tr>
-<td style="text-align:left">ExtClassLoader</td>
+<td style="text-align:left">扩展类加载器(ExtClassLoader)</td>
 <td style="text-align:left">Bootstrap</td>
 <td style="text-align:left">加载${JRE_HOME}/lib/ext或者java.ext.dirs指向的目录</td>
 </tr>
 <tr>
-<td style="text-align:left">AppClassLoader</td>
+<td style="text-align:left">应用程序类加载器(AppClassLoader)</td>
 <td style="text-align:left">ExtClassLoader</td>
 <td style="text-align:left">加载由-classpath或-cp选项定义，或者是JAR中的Manifest的classpath属性定义指向的目录</td>
 </tr>
@@ -953,11 +953,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="volatile-定义"><a href="#volatile-定义" class="headerlink" title="volatile 定义"></a>volatile 定义</h4><p>java编程语言允许线程访问共享变量, 为了确保共享变量能被准确和一致的更新,线程应该确保通过排他锁单独获得这个变量. Java 语言提供了一种稍弱的同步机制, 即 volatile 变量.用来确保将变量的更新操作通知到其他线程,保证了新值能立即同步到主内存, 以及每次使用前立即从主内存刷新. 当把变量声明为volatile类型后, 编译器与运行时都会注意到这个变量是共享的.</p>
+        <h4 id="volatile-定义"><a href="#volatile-定义" class="headerlink" title="volatile 定义"></a>volatile 定义</h4><p>java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致的更新，线程应该确保通过排他锁单独获得这个变量。Java 语言提供了一种稍弱的同步机制，即 volatile 变量。用来确保将变量的更新操作通知到其他线程，保证了新值能立即同步到主内存，以及每次使用前立即从主内存刷新。当把变量声明为volatile类型后，编译器与运行时都会注意到这个变量是共享的。</p>
 <ol>
-<li><p>volatile不能保证原子性。简单说，java有所谓主内存区和线程栈，同一变量在主内存区和各个线程的栈都存在副本(一对多)。volatile提供的可见性, 是说每个线程访问用volatile修饰的变量时，volatile都保证线程能从主存区加载到当前最新的值(反之，线程修改后同步到主存的值也要保证对其他线程的可见);</p>
+<li><p>volatile不能保证原子性。简单说，java有所谓主内存区和线程栈，同一变量在主内存区和各个线程的栈都存在副本(一对多)。volatile提供的可见性，是说每个线程访问用volatile修饰的变量时，volatile都保证线程能从主存区加载到当前最新的值(反之，线程修改后同步到主存的值也要保证对其他线程的可见)；</p>
 </li>
-<li><p>因为非原子性，volatile往往不能保证线程安全;</p>
+<li><p>因为非原子性，volatile往往不能保证线程安全。</p>
 </li>
 </ol>
 
@@ -970,7 +970,7 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile/">volatile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程，volatile/">多线程，volatile</a></li></ul>
     </div>
 
       
