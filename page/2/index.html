@@ -170,11 +170,9 @@
                     <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                                <a class="fa Email" target="_blank" href="mailto:sephymartin@gmail.com" title="Email"></a>
                             
-                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                                <a class="fa GitHub" target="_blank" href="https://github.com/qtxxm" title="GitHub"></a>
                             
                         </ul>
                     </nav>
@@ -246,11 +244,9 @@
             <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                                <a class="fa Email" target="_blank" href="mailto:sephymartin@gmail.com" title="Email"></a>
                             
-                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                                <a class="fa GitHub" target="_blank" href="https://github.com/qtxxm" title="GitHub"></a>
                             
                         </ul>
             </nav>
@@ -260,10 +256,10 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-redis 编译安装" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-PostgreSQL升级" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/02/redis 编译安装/" class="article-date">
+      <a href="/2016/07/02/PostgreSQL升级/" class="article-date">
       <time datetime="2016-07-02T04:40:17.000Z" itemprop="datePublished">2016-07-02</time>
 </a>
     </div>
@@ -277,7 +273,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/02/redis 编译安装/">Redis 编译安装</a>
+      <a class="article-title" href="/2016/07/02/PostgreSQL升级/">PostgreSQL升级</a>
     </h1>
   
 
@@ -287,10 +283,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="安装前准备工作"><a href="#安装前准备工作" class="headerlink" title="安装前准备工作"></a>安装前准备工作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#Install gcc &amp; tcl, needed for compilation</div><div class="line">yum install -y gcc*</div><div class="line">yum install -y tcl</div></pre></td></tr></table></figure>
-<h4 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tar xzf redis-3.0.1.tar.gz</div><div class="line">cd redis-3.0.1</div><div class="line">make</div><div class="line">make test</div><div class="line">make install</div><div class="line">cd utils</div><div class="line">chmod +x install_server.sh</div><div class="line">./install_server.sh</div><div class="line">####</div></pre></td></tr></table></figure>
-<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service redis_6379 status</div><div class="line">service redis_6379 start</div></pre></td></tr></table></figure>
-<h4 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/redis/6379.conf</div><div class="line"># find # requirepass foobared </div><div class="line">#replace it with your password</div><div class="line">requirepass somePassword</div><div class="line">service redis_6379 restart</div></pre></td></tr></table></figure>
+        <p>在 PostgreSQL 从9.4 升级为 9.5后, 发现服务无法启动了, 报错如下</p>
+<blockquote>
+<p>The data directory was initialized by PostgreSQL version 9.4, which is not compatible with this version 9.5.2</p>
+</blockquote>
+<p>搜索后, 发现可以使用 PostgreSQL 提供的 pg_upgrade 进行数据库升级</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 停止 postgres</span></div><div class="line">pg_ctl -D /usr/<span class="built_in">local</span>/var/postgres stop <span class="_">-s</span> -m fast</div><div class="line"></div><div class="line"><span class="comment"># 初始化一个新的数据库</span></div><div class="line">initdb /usr/<span class="built_in">local</span>/var/postgres9.5 -E utf8</div><div class="line"></div><div class="line"><span class="comment"># 使用 pg_upgrade 命令将原先的数据库数据升级到新的数据库版本</span></div><div class="line">pg_upgrade \</div><div class="line">  <span class="_">-d</span> /usr/<span class="built_in">local</span>/var/postgres \</div><div class="line">  -D /usr/<span class="built_in">local</span>/var/postgres9.5 \</div><div class="line">  -b /usr/<span class="built_in">local</span>/Cellar/postgresql/9.4/bin/ \</div><div class="line">  -B /usr/<span class="built_in">local</span>/Cellar/postgresql/9.5/bin/ \</div><div class="line">  -v</div><div class="line"></div><div class="line"><span class="comment"># 重命名数据库目录</span></div><div class="line">mv /usr/<span class="built_in">local</span>/var/postgres /usr/<span class="built_in">local</span>/var/postgres9.4</div><div class="line">mv /usr/<span class="built_in">local</span>/var/postgres9.5 /usr/<span class="built_in">local</span>/var/postgres</div><div class="line"></div><div class="line"><span class="comment"># 重新启动数据库服务</span></div><div class="line">pg_ctl -D /usr/<span class="built_in">local</span>/var/postgres <span class="_">-l</span> /usr/<span class="built_in">local</span>/var/postgres/server.log start</div></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -300,7 +299,7 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li></ul>
     </div>
 
       
